@@ -12,7 +12,7 @@
       --stage-bg: #050505;
       --slide-bg: #111111;
       --ink: #111111;
-      --fire: #e85d26;
+      --fire: #d0673f;
       --cream: #f0ece5;
       --cream-muted: #9a968f;
       --cream-hint: #575650;
@@ -1302,9 +1302,44 @@
 
     /* ===========================================
        DARK CONTENT OVERRIDES
-       Slides 04, 06 and 08 use the dark register so that
-       only the goal and closing decision pages stay full orange.
+       Every slide uses the dark register; burnt orange is reserved
+       for labels, rules, key numbers and directional signals.
        =========================================== */
+    .dark .goal-side {
+      border-color: var(--border);
+      color: var(--cream-muted);
+    }
+
+    .dark .benefit-primary {
+      border-top-color: var(--fire);
+      border-bottom-color: var(--border);
+    }
+
+    .dark .benefit-word {
+      color: var(--cream);
+    }
+
+    .dark .benefit-primary p {
+      color: var(--cream-muted);
+    }
+
+    .dark .benefit-primary strong {
+      color: var(--cream);
+    }
+
+    .dark .additional-benefits,
+    .dark .additional-benefit {
+      border-color: var(--border);
+    }
+
+    .dark .baseline-strip {
+      color: var(--cream-hint);
+    }
+
+    .dark .baseline-strip strong {
+      color: var(--fire);
+    }
+
     .dark .definition-card {
       border-top-color: var(--fire);
       border-bottom-color: var(--border);
@@ -1391,6 +1426,47 @@
 
     .dark .phase-output {
       border-color: var(--border);
+      color: var(--cream);
+    }
+
+    .dark .budget-summary {
+      border-color: var(--border);
+    }
+
+    .dark .budget-summary .micro-label {
+      color: var(--cream-hint);
+    }
+
+    .dark .budget-value {
+      color: var(--fire);
+    }
+
+    .dark .budget-summary p {
+      color: var(--cream-muted);
+    }
+
+    .dark .role-grid {
+      border-top-color: var(--fire);
+      border-bottom-color: var(--border);
+    }
+
+    .dark .role-card,
+    .dark .decision-bar,
+    .dark .decision-title,
+    .dark .decision-item {
+      border-color: var(--border);
+    }
+
+    .dark .role-no {
+      color: var(--fire);
+    }
+
+    .dark .role-card p {
+      color: var(--cream-muted);
+    }
+
+    .dark .decision-title,
+    .dark .decision-item {
       color: var(--cream);
     }
 
@@ -1668,7 +1744,7 @@
       </section>
 
       <!-- 02 / FINAL GOAL -->
-      <section class="slide orange" data-slide-title="产品最终目标">
+      <section class="slide dark" data-slide-title="产品最终目标">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">02</div>
           <div class="scan-line"></div>
@@ -2059,7 +2135,7 @@
       </section>
 
       <!-- 09 / INVESTMENT & DECISION -->
-      <section class="slide orange" data-slide-title="所需投入与启动决策">
+      <section class="slide dark" data-slide-title="所需投入与启动决策">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">09</div>
           <div class="scan-line"></div>
