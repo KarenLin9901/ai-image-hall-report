@@ -704,10 +704,50 @@
       color: var(--ink);
     }
 
+    .archive-benefit {
+      display: grid;
+      grid-template-columns: 235px 1fr;
+      align-items: center;
+      min-height: 112px;
+      margin-top: 22px;
+      padding: 20px 26px;
+      border-left: 4px solid var(--fire);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(232, 93, 38, 0.12), rgba(232, 93, 38, 0.02) 62%, transparent);
+    }
+
+    .archive-benefit .archive-label {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.10em;
+    }
+
+    .archive-benefit > div > strong {
+      display: block;
+      margin-top: 7px;
+      color: var(--cream);
+      font-size: 29px;
+    }
+
+    .archive-benefit p {
+      padding-left: 28px;
+      border-left: 1px solid var(--border);
+      color: var(--cream-muted);
+      font-size: 20px;
+      line-height: 1.55;
+    }
+
+    .archive-benefit p strong {
+      color: var(--cream);
+      font-size: inherit;
+    }
+
     .additional-benefits {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      margin-top: 22px;
+      margin-top: 18px;
       border-top: 1px solid var(--border-fire);
       border-bottom: 1px solid var(--border-fire);
     }
@@ -1883,7 +1923,7 @@
             <div class="cover-kicker reveal-left" style="--delay:80ms" data-editable>Demo 启动方案汇报</div>
             <h1 class="cover-title reveal" style="--delay:130ms" data-editable>AI影像馆</h1>
             <p class="cover-subtitle reveal" style="--delay:210ms" data-editable>
-              打造面向 C 端的 AIGC 互动影像产品，持续为集团带来流量、数据与项目转化能力。<br>
+              打造面向 C 端的 AIGC 互动影像产品，持续为集团带来流量、数据、媒资增值与项目转化能力。<br>
               <strong>本次申请：以 1 个真实 B/G 端项目启动首轮 Demo 验证。</strong>
             </p>
           </div>
@@ -1919,7 +1959,7 @@
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>FREE C-END EXPERIENCE · SHARE LOOP · USER DATA · CONTENT PREFERENCE · B/G PROJECT REVENUE · AIGC CAPABILITY · FREE C-END EXPERIENCE · SHARE LOOP · USER DATA · </span></div>
+          <div class="edge-ticker"><span>FREE C-END EXPERIENCE · SHARE LOOP · USER DATA · 40+ YEAR MEDIA ARCHIVE RENEWAL · B/G PROJECT REVENUE · AIGC CAPABILITY · FREE C-END EXPERIENCE · SHARE LOOP · </span></div>
         </div>
         <div class="slide-inner">
           <div class="chrome">
@@ -1931,7 +1971,7 @@
               <div>
                 <div class="kicker reveal" style="--delay:40ms" data-editable>先验证，再复制</div>
                 <h2 class="slide-title reveal" style="--delay:100ms" data-editable>
-                  建立一个以 C 端互动传播为入口、<br>持续带来流量与数据的 AIGC 产品
+                  建立一个以 C 端互动传播为入口、<br>持续带来流量、数据与媒资增值的 AIGC 产品
                 </h2>
               </div>
               <p class="goal-side reveal" style="--delay:170ms" data-editable>
@@ -1951,14 +1991,22 @@
               </article>
             </div>
 
+            <article class="archive-benefit reveal" style="--delay:325ms">
+              <div>
+                <span class="archive-label">STRATEGIC VALUE / 03</span>
+                <strong data-editable>40+ 年媒资新生</strong>
+              </div>
+              <p data-editable><strong>通过 AIGC 对集团四十多年媒资进行检索、重组与互动再创作，</strong>让历史影像从存量档案转化为可传播、可体验、可复用的内容资产，在 AI 时代持续产生新价值。</p>
+            </article>
+
             <div class="additional-benefits reveal" style="--delay:340ms">
               <div class="additional-benefit" data-editable>项目收入与客户线索</div>
               <div class="additional-benefit" data-editable>AIGC 能力展示窗口</div>
               <div class="additional-benefit" data-editable>内容生产效率提升</div>
-              <div class="additional-benefit" data-editable>集团媒体与品牌资产激活</div>
+              <div class="additional-benefit" data-editable>可复制场景方案包沉淀</div>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL</span><span>TRAFFIC / DATA / CAPABILITY</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL</span><span>TRAFFIC / DATA / MEDIA ARCHIVE / CAPABILITY</span></div>
         </div>
       </section>
 
