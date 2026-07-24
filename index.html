@@ -936,193 +936,362 @@
     }
 
     /* ===========================================
-       05 / PROTOTYPE
+       05 / PROMPT COMPOSITION
        =========================================== */
-    .prototype-metrics {
+    .prompt-title {
+      max-width: 1550px;
+      font-size: 62px;
+    }
+
+    .prompt-layout {
+      display: grid;
+      grid-template-columns: 330px 1fr 260px;
+      gap: 24px;
+      height: 605px;
+      margin-top: 28px;
+    }
+
+    .prompt-inputs,
+    .prompt-structure,
+    .prompt-runtime {
+      position: relative;
+      min-width: 0;
+    }
+
+    .prompt-inputs::after,
+    .prompt-structure::after {
+      position: absolute;
+      top: 49%;
+      right: -20px;
+      z-index: 2;
+      color: var(--fire);
+      content: "→";
+      font-family: var(--font-mono);
+      font-size: 22px;
+    }
+
+    .prompt-section-label {
+      height: 42px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--fire);
+      color: var(--cream-hint);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .prompt-section-label strong {
+      margin-left: 10px;
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .prompt-variable-list {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      height: calc(100% - 42px);
+    }
+
+    .prompt-variable {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-content: center;
+      min-height: 0;
+      padding: 12px 10px 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prompt-variable .var-no {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .prompt-variable strong {
+      display: block;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    .prompt-variable p {
+      margin-top: 5px;
+      color: var(--cream-muted);
+      font-size: 16px;
+      line-height: 1.38;
+    }
+
+    .prompt-variable code {
+      display: block;
+      margin-top: 6px;
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .prompt-layer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      height: calc(100% - 42px);
+      border-left: 1px solid var(--border);
+    }
+
+    .prompt-layer {
+      position: relative;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-content: center;
+      min-height: 0;
+      padding: 12px 15px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prompt-layer.variable-layer {
+      background: linear-gradient(90deg, rgba(232, 93, 38, 0.10), transparent 72%);
+      box-shadow: inset 3px 0 0 var(--fire);
+    }
+
+    .prompt-layer .layer-no {
+      color: var(--cream-hint);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .prompt-layer.variable-layer .layer-no {
+      color: var(--fire);
+    }
+
+    .prompt-layer strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .prompt-layer p {
+      margin-top: 5px;
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .layer-owner {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      color: var(--cream-hint);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .variable-layer .layer-owner {
+      color: var(--fire);
+    }
+
+    .prompt-runtime {
+      display: grid;
+      grid-template-rows: 42px 1.1fr 0.9fr auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .runtime-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 18px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .runtime-card .runtime-label {
+      color: var(--cream-hint);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+    }
+
+    .runtime-card strong {
+      display: block;
+      margin-top: 12px;
+      font-size: 25px;
+      line-height: 1.25;
+    }
+
+    .runtime-card p {
+      margin-top: 9px;
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.42;
+    }
+
+    .runtime-card.output strong {
+      color: var(--fire);
+      font-size: 30px;
+    }
+
+    .prompt-legend {
+      display: grid;
+      gap: 8px;
+      padding: 15px 0 0;
+      color: var(--cream-muted);
+      font-size: 13px;
+    }
+
+    .prompt-legend span::before {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 8px;
+      content: "";
+      background: var(--cream);
+    }
+
+    .prompt-legend span:first-child::before {
+      background: var(--fire);
+    }
+
+    .prompt-legend span:last-child::before {
+      background: var(--cream-hint);
+    }
+
+    /* ===========================================
+       06 / SYSTEM ARCHITECTURE
+       =========================================== */
+    .tech-title {
+      max-width: 1680px;
+      font-size: 58px;
+    }
+
+    .system-flow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-top: 30px;
+      border-top: 2px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .system-node {
+      position: relative;
+      min-height: 162px;
+      padding: 20px 18px;
+      border-left: 1px solid var(--border);
+    }
+
+    .system-node:first-child {
+      border-left: 0;
+    }
+
+    .system-node::after {
+      position: absolute;
+      top: 64px;
+      right: -9px;
+      z-index: 2;
+      color: var(--fire);
+      content: "→";
+      font-family: var(--font-mono);
+      font-size: 18px;
+    }
+
+    .system-node:last-child::after {
+      content: "";
+    }
+
+    .system-node .node-code {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .system-node strong {
+      display: block;
+      margin-top: 18px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .system-node p {
+      margin-top: 8px;
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .guard-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      margin-top: 34px;
+      margin-top: 30px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
 
-    .prototype-metric {
-      min-height: 126px;
-      padding: 18px 22px;
+    .guard-card {
+      min-height: 270px;
+      padding: 22px 24px;
       border-left: 1px solid var(--border);
     }
 
-    .prototype-metric:first-child {
+    .guard-card:first-child {
       padding-left: 0;
       border-left: 0;
     }
 
-    .prototype-metric strong {
-      display: block;
+    .guard-card .guard-code {
       color: var(--fire);
-      font-size: 35px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.09em;
     }
 
-    .prototype-metric p {
-      margin-top: 7px;
+    .guard-card h3 {
+      margin-top: 15px;
+      font-size: 24px;
+    }
+
+    .guard-card p {
+      margin-top: 12px;
       color: var(--cream-muted);
-      font-size: 16px;
+      font-size: 17px;
+      line-height: 1.52;
     }
 
-    .boundary-grid {
-      display: grid;
-      grid-template-columns: 0.95fr 1.35fr;
-      gap: 26px;
-      margin-top: 26px;
-    }
-
-    .boundary-panel {
-      min-height: 356px;
-      border-top: 3px solid var(--fire);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .boundary-panel h3 {
-      padding: 20px 0 16px;
-      font-size: 28px;
-    }
-
-    .boundary-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border-top: 1px solid var(--border);
-    }
-
-    .boundary-item {
-      min-height: 116px;
-      padding: 15px 18px 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .boundary-item:nth-child(even) {
-      padding-left: 20px;
-      border-left: 1px solid var(--border);
-    }
-
-    .boundary-item .node-index {
-      color: var(--fire);
-      font-size: 12px;
-    }
-
-    .boundary-item strong {
-      display: block;
-      margin-top: 7px;
-      font-size: 19px;
-    }
-
-    .boundary-item p {
-      margin-top: 6px;
-      color: var(--cream-muted);
-      font-size: 15px;
-      line-height: 1.42;
-    }
-
-    .model-note {
+    .state-flow {
       display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .state-flow span {
+      padding: 5px 7px;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .state-flow span:last-child {
+      border-color: var(--fire);
+      color: var(--fire);
+    }
+
+    .system-baseline {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 22px;
       color: var(--cream-muted);
       font-family: var(--font-mono);
-      font-size: 13px;
-      letter-spacing: 0.06em;
+      font-size: 14px;
+      letter-spacing: 0.04em;
     }
 
-    .model-note strong {
+    .system-baseline strong {
       color: var(--cream);
-    }
-
-    /* ===========================================
-       06 / USER JOURNEY & TECHNOLOGY
-       =========================================== */
-    .journey-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      margin-top: 44px;
-      border-top: 1px solid var(--border-fire);
-      border-bottom: 1px solid var(--border-fire);
-    }
-
-    .journey-step {
-      position: relative;
-      min-height: 172px;
-      padding: 20px 16px;
-      border-left: 1px solid var(--border-fire);
-    }
-
-    .journey-step:first-child {
-      border-left: 0;
-    }
-
-    .journey-step::after {
-      position: absolute;
-      top: 67px;
-      right: -8px;
-      z-index: 2;
-      color: var(--ink);
-      content: "→";
-      font-family: var(--font-mono);
-      font-size: 16px;
-    }
-
-    .journey-step:last-child::after {
-      content: "";
-    }
-
-    .journey-step .step-no {
-      color: var(--ink-hint);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-    }
-
-    .journey-step strong {
-      display: block;
-      margin-top: 25px;
-      font-size: 18px;
-      line-height: 1.35;
-    }
-
-    .journey-step p {
-      margin-top: 7px;
-      color: var(--ink-muted);
-      font-size: 15px;
-      line-height: 1.42;
-    }
-
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 54px;
-    }
-
-    .tech-block {
-      min-height: 280px;
-      padding: 26px 28px;
-      border-top: 4px solid var(--ink);
-      border-bottom: 1px solid var(--border-fire);
-    }
-
-    .tech-block .micro-label {
-      color: var(--ink-hint);
-      font-size: 12px;
-      letter-spacing: 0.11em;
-    }
-
-    .tech-block h3 {
-      margin-top: 22px;
-      font-size: 28px;
-    }
-
-    .tech-block p {
-      margin-top: 14px;
-      color: var(--ink-muted);
-      font-size: 18px;
-      line-height: 1.56;
     }
 
     /* ===========================================
@@ -1145,7 +1314,7 @@
 
     .demo-flow {
       display: grid;
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       margin-top: 36px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -1788,10 +1957,6 @@
               <div class="additional-benefit" data-editable>内容生产效率提升</div>
               <div class="additional-benefit" data-editable>集团媒体与品牌资产激活</div>
             </div>
-            <div class="baseline-strip reveal" style="--delay:390ms">
-              <span>FIRST VALIDATION BASELINE</span>
-              <strong data-editable>14 天 · 4 个角色 · 2 万元 · 1 个真实种子项目</strong>
-            </div>
           </div>
           <div class="slide-foot"><span>AI IMAGE HALL</span><span>TRAFFIC / DATA / CAPABILITY</span></div>
         </div>
@@ -1855,11 +2020,11 @@
             </div>
 
             <div class="owner-chain reveal" style="--delay:350ms">
-              <div class="owner-item"><span class="micro-label">01 / DEMAND</span><strong data-editable>需求与商务</strong><p data-editable>商务经理：客户、预算、决策与边界</p></div>
-              <div class="owner-item"><span class="micro-label">02 / CONTENT</span><strong data-editable>策划与制作</strong><p data-editable>AIGC 策划制作：脚本、分镜、资产、Prompt</p></div>
-              <div class="owner-item"><span class="micro-label">03 / PRODUCT</span><strong data-editable>产品与技术</strong><p data-editable>产品经理＋研发：流程、平台、数据、模型适配</p></div>
-              <div class="owner-item"><span class="micro-label">04 / RELEASE</span><strong data-editable>发行与渠道</strong><p data-editable>商务＋产品：固定入口与项目发行资源</p></div>
-              <div class="owner-item"><span class="micro-label">05 / REVIEW</span><strong data-editable>数据与复盘</strong><p data-editable>产品经理：数据归集、成本与优化建议</p></div>
+              <div class="owner-item"><span class="micro-label">01 / DEMAND</span><strong data-editable>需求与商务</strong><p data-editable>获取真实项目、预算与客户目标</p></div>
+              <div class="owner-item"><span class="micro-label">02 / CONTENT</span><strong data-editable>策划与制作</strong><p data-editable>将需求转为脚本、分镜与生成资产</p></div>
+              <div class="owner-item"><span class="micro-label">03 / PRODUCT</span><strong data-editable>产品与技术</strong><p data-editable>将方案变成可运行、可追踪的产品</p></div>
+              <div class="owner-item"><span class="micro-label">04 / RELEASE</span><strong data-editable>发行与渠道</strong><p data-editable>将成品转化为参与与传播入口</p></div>
+              <div class="owner-item"><span class="micro-label">05 / REVIEW</span><strong data-editable>数据与复盘</strong><p data-editable>将项目结果沉淀为下一次复用能力</p></div>
             </div>
           </div>
           <div class="slide-foot"><span>AI IMAGE HALL</span><span>CONTENT × PRODUCT × DISTRIBUTION × DATA</span></div>
@@ -1923,7 +2088,7 @@
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>ONE PROTAGONIST · THREE SCENES · FIVE TO FIFTEEN SECONDS · 720P · FIVE CONCURRENT TASKS · CLOUD SEEDANCE · OPEN-SOURCE MODEL LATER · </span></div>
+          <div class="edge-ticker"><span>FOUR USER VARIABLES · EIGHT PROMPT LAYERS · FIXED STORYBOARD · FIXED CAMERA · CLOUD SEEDANCE · FIFTEEN SECOND OUTPUT · VERSION CONTROL · </span></div>
         </div>
         <div class="slide-inner">
           <div class="chrome">
@@ -1931,54 +2096,110 @@
             <span>CONTROLLED FREEDOM / 05—09</span>
           </div>
           <div class="content-area">
-            <div class="kicker reveal" style="--delay:40ms" data-editable>用户自由度必须受控</div>
-            <h2 class="slide-title reveal" style="--delay:100ms" data-editable>首版开放三项基础输入，其余能力全部模板化</h2>
+            <div class="kicker reveal" style="--delay:40ms" data-editable>固定脚本、分镜和生成规则，只开放必要个性化变量</div>
+            <h2 class="slide-title prompt-title reveal" style="--delay:100ms" data-editable>用户不编辑 Prompt，只向固定结构注入四类变量</h2>
 
-            <div class="prototype-metrics reveal" style="--delay:170ms">
-              <div class="prototype-metric"><strong data-editable>1 个</strong><p data-editable>可替换主角</p></div>
-              <div class="prototype-metric"><strong data-editable>3 个</strong><p data-editable>预设场景可选</p></div>
-              <div class="prototype-metric"><strong data-editable>5–15 秒 / 720p</strong><p data-editable>首个 Demo 固定 15 秒</p></div>
-              <div class="prototype-metric"><strong data-editable>5 并发</strong><p data-editable>最小任务处理能力</p></div>
-            </div>
-
-            <div class="boundary-grid">
-              <article class="boundary-panel reveal" style="--delay:230ms">
-                <h3 data-editable>用户可替换</h3>
-                <div class="boundary-list">
-                  <div class="boundary-item"><span class="node-index">INPUT / 01</span><strong data-editable>主角照片</strong><p data-editable>仅替换一名主角，降低一致性难度。</p></div>
-                  <div class="boundary-item"><span class="node-index">INPUT / 02</span><strong data-editable>预设场景</strong><p data-editable>从三个已跑通的场景中选择。</p></div>
-                  <div class="boundary-item"><span class="node-index">INPUT / 03</span><strong data-editable>台词文本</strong><p data-editable>建议控制在 30 个汉字以内。</p></div>
-                  <div class="boundary-item"><span class="node-index">OPTION</span><strong data-editable>声音样本</strong><p data-editable>可录音或上传，系统参考音色生成。</p></div>
+            <div class="prompt-layout">
+              <section class="prompt-inputs reveal" style="--delay:170ms">
+                <div class="prompt-section-label">USER INPUT <strong data-editable>用户变量</strong></div>
+                <div class="prompt-variable-list">
+                  <article class="prompt-variable">
+                    <span class="var-no">01</span>
+                    <div><strong data-editable>上传主角照片</strong><p data-editable>仅替换一名主角</p><code>character_reference</code></div>
+                  </article>
+                  <article class="prompt-variable">
+                    <span class="var-no">02</span>
+                    <div><strong data-editable>选择预设场景</strong><p data-editable>从三个已跑通场景中选择</p><code>scene_package</code></div>
+                  </article>
+                  <article class="prompt-variable">
+                    <span class="var-no">03</span>
+                    <div><strong data-editable>输入台词文本</strong><p data-editable>建议控制在 30 个汉字以内</p><code>dialogue_text</code></div>
+                  </article>
+                  <article class="prompt-variable">
+                    <span class="var-no">04</span>
+                    <div><strong data-editable>可选声音样本</strong><p data-editable>录音或上传，用于参考音色</p><code>voice_reference</code></div>
+                  </article>
                 </div>
-              </article>
+              </section>
 
-              <article class="boundary-panel reveal" style="--delay:290ms">
-                <h3 data-editable>系统固定</h3>
-                <div class="boundary-list">
-                  <div class="boundary-item"><span class="node-index">FIXED / 01</span><strong data-editable>脚本、分镜与节奏</strong><p data-editable>动作、镜头、故事结构和情绪节奏由项目模板控制。</p></div>
-                  <div class="boundary-item"><span class="node-index">FIXED / 02</span><strong data-editable>成片规格</strong><p data-editable>平台支持 5–15 秒；首个 Demo 固定 15 秒、720p，不做字幕。</p></div>
-                  <div class="boundary-item"><span class="node-index">FIXED / 03</span><strong data-editable>风格与 Prompt</strong><p data-editable>采用已跑通的完整 Prompt 结构，不向用户开放。</p></div>
-                  <div class="boundary-item"><span class="node-index">FIXED / 04</span><strong data-editable>模型调用链</strong><p data-editable>Demo 调用云端 Seedance API，不单独开发口型环节。</p></div>
+              <section class="prompt-structure reveal" style="--delay:230ms">
+                <div class="prompt-section-label">PROMPT SCHEMA <strong data-editable>完整结构由制作端统一版本管理</strong></div>
+                <div class="prompt-layer-grid">
+                  <article class="prompt-layer">
+                    <span class="layer-no">01</span>
+                    <div><strong data-editable>输出规格</strong><p data-editable>模型、15 秒、720p、画幅与音频要求</p></div>
+                    <span class="layer-owner">SYSTEM</span>
+                  </article>
+                  <article class="prompt-layer variable-layer">
+                    <span class="layer-no">02</span>
+                    <div><strong data-editable>参考资产绑定</strong><p data-editable>主角、场景、道具与声音的引用关系</p></div>
+                    <span class="layer-owner">VARIABLE</span>
+                  </article>
+                  <article class="prompt-layer">
+                    <span class="layer-no">03</span>
+                    <div><strong data-editable>故事目标</strong><p data-editable>主题、情绪价值、梗概、钩子与结尾</p></div>
+                    <span class="layer-owner">PLANNER</span>
+                  </article>
+                  <article class="prompt-layer">
+                    <span class="layer-no">04</span>
+                    <div><strong data-editable>分镜与时间轴</strong><p data-editable>分段事件、镜头顺序、节奏与转场</p></div>
+                    <span class="layer-owner">FIXED</span>
+                  </article>
+                  <article class="prompt-layer">
+                    <span class="layer-no">05</span>
+                    <div><strong data-editable>动作与表演</strong><p data-editable>动作、表情、走位与角色互动</p></div>
+                    <span class="layer-owner">FIXED</span>
+                  </article>
+                  <article class="prompt-layer">
+                    <span class="layer-no">06</span>
+                    <div><strong data-editable>镜头与视觉</strong><p data-editable>景别、机位、运镜、构图、光色与风格</p></div>
+                    <span class="layer-owner">FIXED</span>
+                  </article>
+                  <article class="prompt-layer variable-layer">
+                    <span class="layer-no">07</span>
+                    <div><strong data-editable>台词与声音</strong><p data-editable>台词、音色、环境声与音乐规则</p></div>
+                    <span class="layer-owner">VARIABLE</span>
+                  </article>
+                  <article class="prompt-layer">
+                    <span class="layer-no">08</span>
+                    <div><strong data-editable>约束与质量</strong><p data-editable>角色一致、无多余人物、无字幕与瑕疵规避</p></div>
+                    <span class="layer-owner">SYSTEM</span>
+                  </article>
                 </div>
-              </article>
-            </div>
-            <div class="model-note reveal" style="--delay:350ms">
-              <span data-editable><strong>C 端：</strong>轻量 H5　／　<strong>内部：</strong>最小任务后台</span>
-              <span data-editable><strong>模型策略：</strong>Demo 使用云端 Seedance；正式版根据实际算力评估 Wan2.2 等开源模型</span>
+              </section>
+
+              <section class="prompt-runtime reveal" style="--delay:290ms">
+                <div class="prompt-section-label">RUNTIME</div>
+                <article class="runtime-card">
+                  <span class="runtime-label">MODEL ADAPTER</span>
+                  <strong data-editable>云端 Seedance API</strong>
+                  <p data-editable>Demo 阶段通过适配层调用；正式版再按算力、质量与成本评估 Wan2.2 等开源模型。</p>
+                </article>
+                <article class="runtime-card output">
+                  <span class="runtime-label">OUTPUT</span>
+                  <strong data-editable>15 秒 / 720p</strong>
+                  <p data-editable>单主角个性化互动短视频</p>
+                </article>
+                <div class="prompt-legend">
+                  <span data-editable>橙色：用户变量注入</span>
+                  <span data-editable>白色：固定 Prompt 结构</span>
+                  <span data-editable>灰色：模型运行与输出</span>
+                </div>
+              </section>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL</span><span>TEMPLATE FIRST / LIMITED INPUT</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL</span><span>VARIABLE INPUT / FIXED PROMPT / VERSION CONTROL</span></div>
         </div>
       </section>
 
-      <!-- 06 / USER JOURNEY -->
+      <!-- 06 / SYSTEM ARCHITECTURE -->
       <section class="slide dark" data-slide-title="用户链路与技术实现">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">06</div>
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>OPEN LINK · AUTHORIZE · UPLOAD PHOTO · SELECT SCENE · ENTER LINE · ASYNC GENERATION · PREVIEW · SHARE · TASK QUEUE · MODEL ADAPTER · LOCAL STORAGE · OPEN LINK · </span></div>
+          <div class="edge-ticker"><span>C-END H5 · BUSINESS API · PRIVATE STORAGE · TASK QUEUE · MODEL ADAPTER · CLOUD GENERATION · RESULT STORAGE · SHARE RETURN · STATE MACHINE · </span></div>
         </div>
         <div class="slide-inner">
           <div class="chrome">
@@ -1986,39 +2207,50 @@
             <span>USER JOURNEY & TECH / 06—09</span>
           </div>
           <div class="content-area">
-            <div class="kicker reveal" style="--delay:40ms" data-editable>前端轻，后台稳</div>
-            <h2 class="slide-title reveal" style="--delay:100ms" data-editable>用户 8 步完成，系统在后台异步处理</h2>
+            <div class="kicker reveal" style="--delay:40ms" data-editable>用户只走 4 步：授权上传 → 选择场景 → 输入台词 → 查看分享</div>
+            <h2 class="slide-title tech-title reveal" style="--delay:100ms" data-editable>后台用队列、状态机和模型适配层完成真实生成</h2>
 
-            <div class="journey-grid reveal" style="--delay:175ms">
-              <div class="journey-step"><span class="step-no">01</span><strong data-editable>打开入口</strong><p data-editable>链接、二维码或活动页</p></div>
-              <div class="journey-step"><span class="step-no">02</span><strong data-editable>授权确认</strong><p data-editable>素材与生成用途确认</p></div>
-              <div class="journey-step"><span class="step-no">03</span><strong data-editable>上传照片</strong><p data-editable>单一主角素材</p></div>
-              <div class="journey-step"><span class="step-no">04</span><strong data-editable>选择场景</strong><p data-editable>三个预设场景</p></div>
-              <div class="journey-step"><span class="step-no">05</span><strong data-editable>输入台词</strong><p data-editable>可选声音样本</p></div>
-              <div class="journey-step"><span class="step-no">06</span><strong data-editable>异步生成</strong><p data-editable>任务状态可查询</p></div>
-              <div class="journey-step"><span class="step-no">07</span><strong data-editable>预览下载</strong><p data-editable>仅展示成品与记录</p></div>
-              <div class="journey-step"><span class="step-no">08</span><strong data-editable>分享传播</strong><p data-editable>链接或成片二维码回流</p></div>
+            <div class="system-flow reveal" style="--delay:170ms">
+              <article class="system-node"><span class="node-code">01 / C-END</span><strong data-editable>C 端 H5</strong><p data-editable>授权、上传、场景与台词输入</p></article>
+              <article class="system-node"><span class="node-code">02 / API</span><strong data-editable>业务接口</strong><p data-editable>校验参数、幂等建单、生成随机任务标识</p></article>
+              <article class="system-node"><span class="node-code">03 / STORAGE</span><strong data-editable>私有对象存储</strong><p data-editable>原始素材、标准化资产与成品分区</p></article>
+              <article class="system-node"><span class="node-code">04 / QUEUE</span><strong data-editable>异步任务队列</strong><p data-editable>五个真实模型任务并发，第六个起排队</p></article>
+              <article class="system-node"><span class="node-code">05 / ADAPTER</span><strong data-editable>模型适配层</strong><p data-editable>统一 Prompt、参数、回调与模型切换</p></article>
+              <article class="system-node"><span class="node-code">06 / MODEL</span><strong data-editable>云端 Seedance</strong><p data-editable>执行视频与声音生成，返回任务状态</p></article>
+              <article class="system-node"><span class="node-code">07 / RESULT</span><strong data-editable>成品与分享</strong><p data-editable>结果入库、签名访问、二维码与来源回流</p></article>
             </div>
 
-            <div class="tech-grid">
-              <article class="tech-block reveal" style="--delay:240ms">
-                <span class="micro-label">TECH / 01</span>
-                <h3 data-editable>H5 与任务后台</h3>
-                <p data-editable>H5 完成输入、状态查询、预览和下载，并生成带项目标识的分享链接或成片二维码；后台管理任务与异常。</p>
+            <div class="guard-grid">
+              <article class="guard-card reveal" style="--delay:230ms">
+                <span class="guard-code">GUARD / 01</span>
+                <h3 data-editable>任务状态可追踪</h3>
+                <div class="state-flow"><span>queued</span><span>generating</span><span>retrying</span><span>completed</span><span>failed</span></div>
+                <p data-editable>前端只展示可理解状态；后台保留供应商任务号和完整执行记录。</p>
               </article>
-              <article class="tech-block reveal" style="--delay:300ms">
-                <span class="micro-label">TECH / 02</span>
-                <h3 data-editable>模型适配与异步队列</h3>
-                <p data-editable>通过模型适配层调用云端 Seedance API，以任务队列控制五并发、失败重试与状态同步，并为正式版切换开源模型预留接口。</p>
+              <article class="guard-card reveal" style="--delay:280ms">
+                <span class="guard-code">GUARD / 02</span>
+                <h3 data-editable>并发与失败恢复</h3>
+                <p data-editable>回调为主、轮询兜底；超时或失败按规则重试，幂等机制避免重复创建模型任务和重复扣费。</p>
               </article>
-              <article class="tech-block reveal" style="--delay:360ms">
-                <span class="micro-label">TECH / 03</span>
-                <h3 data-editable>数据与素材保存</h3>
-                <p data-editable>任务、成品、成本与日志入库；原始照片和声音样本经单独授权后，可在后台加密长期保存并支持删除；C 端仅保留成品与任务记录。</p>
+              <article class="guard-card reveal" style="--delay:330ms">
+                <span class="guard-code">GUARD / 03</span>
+                <h3 data-editable>素材与访问安全</h3>
+                <p data-editable>原始、标准化、成品分区保存；随机任务与分享标识，配套授权、加密和删除记录。</p>
               </article>
+              <article class="guard-card reveal" style="--delay:380ms">
+                <span class="guard-code">GUARD / 04</span>
+                <h3 data-editable>成本与质量可复盘</h3>
+                <p data-editable>记录生成时长、Token/积分、重试次数和错误类型，计算成功率、P95 时长与单条成片成本。</p>
+              </article>
+            </div>
+            <div class="system-baseline reveal" style="--delay:420ms">
+              <span data-editable><strong>输出：</strong>15 秒个性化视频</span>
+              <span data-editable><strong>目标等待：</strong>5–15 分钟</span>
+              <span data-editable><strong>超时线：</strong>20 分钟</span>
+              <span data-editable><strong>队列容量：</strong>5 个真实模型任务并发</span>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL</span><span>LIGHT FRONTEND / ASYNC BACKEND / TRACEABLE DATA</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL</span><span>QUEUE / STATE MACHINE / MODEL ADAPTER / OBSERVABILITY</span></div>
         </div>
       </section>
 
@@ -2046,15 +2278,11 @@
             </div>
 
             <div class="demo-flow reveal" style="--delay:210ms">
-              <div class="demo-step"><span class="step-no">01</span><strong data-editable>获取<br>需求</strong></div>
-              <div class="demo-step"><span class="step-no">02</span><strong data-editable>项目<br>简报</strong></div>
-              <div class="demo-step"><span class="step-no">03</span><strong data-editable>脚本<br>分镜</strong></div>
-              <div class="demo-step gate"><span class="step-no">04 / GATE A</span><strong data-editable>客户书面<br>确认</strong></div>
-              <div class="demo-step"><span class="step-no">05</span><strong data-editable>资产与<br>Prompt</strong></div>
-              <div class="demo-step"><span class="step-no">06</span><strong data-editable>个性化<br>样片</strong></div>
-              <div class="demo-step gate"><span class="step-no">07 / GATE B</span><strong data-editable>客户样片<br>确认</strong></div>
-              <div class="demo-step"><span class="step-no">08</span><strong data-editable>测试与<br>定向开放</strong></div>
-              <div class="demo-step"><span class="step-no">09</span><strong data-editable>发行与<br>复盘</strong></div>
+              <div class="demo-step"><span class="step-no">01 / BRIEF</span><strong data-editable>需求与<br>项目简报</strong></div>
+              <div class="demo-step gate"><span class="step-no">02 / GATE A</span><strong data-editable>客户确认<br>脚本分镜</strong></div>
+              <div class="demo-step"><span class="step-no">03 / BUILD</span><strong data-editable>资产准备与<br>真实生成</strong></div>
+              <div class="demo-step gate"><span class="step-no">04 / GATE B</span><strong data-editable>客户确认<br>个性化样片</strong></div>
+              <div class="demo-step"><span class="step-no">05 / RELEASE</span><strong data-editable>定向开放与<br>项目复盘</strong></div>
             </div>
 
             <div class="demo-bottom">
@@ -2063,7 +2291,7 @@
                 <p data-editable>
                   <strong>内容：</strong>经确认的脚本、分镜和三个场景<br>
                   <strong>样片：</strong>一条真实个性化生成视频<br>
-                  <strong>产品：</strong>可运行 H5、最小后台和云端 Seedance 生成链路<br>
+                  <strong>产品：</strong>可运行 H5、最小后台和真实云端生成链路<br>
                   <strong>运营：</strong>发行链接、成片二维码与定向开放方案<br>
                   <strong>复盘：</strong>实测成本、生成稳定性、客户反馈与传播数据
                 </p>
@@ -2098,7 +2326,7 @@
           <div class="content-area">
             <div class="timeline-intro">
               <div>
-                <div class="kicker reveal" style="--delay:40ms" data-editable>T0：四角色到位、种子项目明确、预算开放、云端 Seedance API 可调用</div>
+                <div class="kicker reveal" style="--delay:40ms" data-editable>T0：四角色到位、种子项目明确、预算开放、云端生成接口可调用</div>
                 <h2 class="slide-title reveal" style="--delay:100ms" data-editable>14 天完成可运行产品与客户样片</h2>
               </div>
               <div class="duration reveal" style="--delay:150ms" data-editable>DAY 01 → 14</div>
@@ -2108,7 +2336,7 @@
               <article class="phase reveal" style="--delay:200ms">
                 <div class="phase-day">PHASE 01 / DAY 01</div>
                 <h3 data-editable>确认输入与技术起点</h3>
-                <p data-editable>锁定项目简报、页面流程与数据结构；实测云端 Seedance API 的生成效果、时延与成本。</p>
+                <p data-editable>锁定项目简报、页面流程与数据结构；实测生成效果、时延与成本。</p>
                 <div class="phase-output" data-editable>输出：项目简报、接口结论、页面原型与脚本方向</div>
               </article>
               <article class="phase reveal" style="--delay:260ms">
