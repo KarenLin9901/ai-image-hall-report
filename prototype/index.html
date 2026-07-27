@@ -118,7 +118,7 @@
     .result-title{font-family:"Songti SC","STSong",serif;font-size:24px;margin:18px 0 4px}
     .result-meta{font-size:12px;color:var(--muted)}
     .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-    .secondary{border:1px solid var(--line);background:rgba(255,250,240,.74);border-radius:15px;padding:13px;font-size:13px;font-weight:700;color:var(--ink)}
+    .secondary{border:1px solid var(--line);background:rgba(255,250,240,.74);border-radius:15px;padding:13px;font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;text-align:center}
     .secondary.accent{background:var(--red);border-color:var(--red);color:white}
     .toast{position:absolute;left:50%;bottom:28px;z-index:30;transform:translate(-50%,18px);padding:11px 17px;border-radius:99px;background:#211712;color:white;font-size:12px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
     .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -263,7 +263,7 @@
               </div>
               <div class="action-grid">
                 <button class="secondary" id="restartBtn" data-testid="restart">重新生成</button>
-                <button class="secondary" id="downloadBtn" data-testid="download">下载封面</button>
+                <a class="secondary" id="downloadBtn" data-testid="download" download="我的深圳城市记忆封面.svg" href="#">下载封面</a>
                 <button class="secondary accent" id="shareBtn" data-testid="share">分享作品</button>
               </div>
             </div>
@@ -335,15 +335,13 @@
       $("#resultScene").textContent=selectedScene.split(" · ")[0];
       $("#resultSceneHero").textContent=selectedScene;
       $("#resultDialogue").textContent=$("#dialogue").value.trim();
-    }
-    $("#playBtn").addEventListener("click",e=>{e.currentTarget.textContent=e.currentTarget.textContent==="▶"?"Ⅱ":"▶";toast("演示成片播放状态已切换")});
-    $("#restartBtn").addEventListener("click",()=>{show("upload");$("#intro").classList.add("hidden")});
-    $("#downloadBtn").addEventListener("click",()=>{
       const safe=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
       const scene=safe(selectedScene),line=safe($("#dialogue").value.trim());
       const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1440"><defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="#d7b98f"/><stop offset=".55" stop-color="#6f4b38"/><stop offset="1" stop-color="#201612"/></linearGradient></defs><rect width="1080" height="1440" fill="url(#g)"/><path d="M0 960V700h90V540h130v210h120V420h160v300h120V500h150v250h130V590h180v370z" fill="#241915" opacity=".82"/><text x="82" y="120" fill="#fff1dd" font-family="sans-serif" font-size="38" font-weight="700">咣当 · 深圳城市影像馆</text><text x="82" y="1090" fill="#fff" font-family="serif" font-size="66" font-weight="700">${scene}</text><text x="82" y="1185" fill="#f3dfc8" font-family="sans-serif" font-size="34">“${line}”</text><text x="82" y="1330" fill="#d9baa0" font-family="sans-serif" font-size="26">15 秒城市记忆短片 · 四步生成</text></svg>`;
-      const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"})),a=document.createElement("a");a.href=url;a.download="我的深圳城市记忆封面.svg";a.click();setTimeout(()=>URL.revokeObjectURL(url),500);toast("封面已开始下载");
-    });
+      $("#downloadBtn").href="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+    }
+    $("#playBtn").addEventListener("click",e=>{e.currentTarget.textContent=e.currentTarget.textContent==="▶"?"Ⅱ":"▶";toast("演示成片播放状态已切换")});
+    $("#restartBtn").addEventListener("click",()=>{show("upload");$("#intro").classList.add("hidden")});
     $("#shareBtn").addEventListener("click",async()=>{
       const data={title:"我的深圳城市记忆短片",text:$("#resultDialogue").textContent,url:location.href};
       try{if(navigator.share){await navigator.share(data);return}await navigator.clipboard.writeText(location.href);toast("分享链接已复制")}catch(e){toast("可复制浏览器地址进行分享")}
