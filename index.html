@@ -3507,6 +3507,204 @@
       font-size: 15px;
     }
 
+    /* 06 — explain why the planning-production layer is necessary */
+    .production-value-flow {
+      display: grid;
+      grid-template-columns: 315px 54px 1fr 54px 350px;
+      align-items: stretch;
+      margin-top: 38px;
+    }
+
+    .production-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 34px;
+    }
+
+    .production-end {
+      min-height: 430px;
+      border-top: 5px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .production-end.output {
+      border-top-color: var(--cream);
+    }
+
+    .production-end-head {
+      min-height: 100px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .production-end-head span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .production-end-head h3 {
+      margin-top: 10px;
+      font-size: 30px;
+    }
+
+    .production-end-item {
+      min-height: 76px;
+      padding: 14px 8px 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .production-end-item b {
+      display: block;
+      font-size: 20px;
+    }
+
+    .production-end-item p {
+      margin-top: 5px;
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .production-engine {
+      min-height: 430px;
+      padding: 0 22px;
+      color: var(--ink);
+      background: var(--cream);
+    }
+
+    .production-engine-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      min-height: 100px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+    }
+
+    .production-engine-head span {
+      color: var(--ink-hint);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .production-engine-head h3 {
+      font-size: 30px;
+    }
+
+    .production-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      min-height: 236px;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+    }
+
+    .production-step {
+      position: relative;
+      padding: 24px 16px;
+      border-left: 1px solid rgba(17, 17, 17, 0.18);
+    }
+
+    .production-step:first-child {
+      border-left: 0;
+    }
+
+    .production-step::after {
+      position: absolute;
+      top: 104px;
+      right: -9px;
+      z-index: 2;
+      color: var(--fire);
+      content: "→";
+      font-family: var(--font-mono);
+      font-size: 20px;
+    }
+
+    .production-step:last-child::after {
+      display: none;
+    }
+
+    .production-step span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .production-step b {
+      display: block;
+      margin-top: 20px;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    .production-step p {
+      margin-top: 12px;
+      color: var(--ink-muted);
+      font-size: 15px;
+      line-height: 1.42;
+    }
+
+    .production-control {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      min-height: 92px;
+      align-items: center;
+    }
+
+    .production-control span {
+      padding: 14px 12px;
+      border-left: 1px solid rgba(17, 17, 17, 0.18);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .production-control span:first-child {
+      border-left: 0;
+    }
+
+    .production-outcomes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 30px;
+      border-top: 4px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .production-outcome {
+      min-height: 180px;
+      padding: 22px 28px;
+      border-left: 1px solid var(--border);
+    }
+
+    .production-outcome:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .production-outcome span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .production-outcome h3 {
+      margin-top: 14px;
+      font-size: 27px;
+    }
+
+    .production-outcome p {
+      margin-top: 10px;
+      color: var(--cream-muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
     /* ===========================================
        OUTSIDE-STAGE NAVIGATION
        =========================================== */
@@ -3970,73 +4168,70 @@
       </section>
 
       <!-- 06 / PLANNING PLATFORM -->
-      <section class="slide dark" data-slide-title="策划生产平台">
+      <section class="slide dark" data-slide-title="策划生产与复用">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">06</div>
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>SCRIPT · STORYBOARD · PROMPT · SAMPLE · VERSION · SCRIPT · STORYBOARD · PROMPT · SAMPLE · VERSION · </span></div>
+          <div class="edge-ticker"><span>PROJECT INPUT · STANDARD PRODUCTION · REUSABLE PACKAGE · PROJECT INPUT · STANDARD PRODUCTION · </span></div>
         </div>
         <div class="slide-inner">
           <div class="chrome"><span><span class="active-label">06</span> / INTERNAL PRODUCTION PLATFORM</span><span>INTERNAL / 06—08</span></div>
           <div class="content-area">
             <div class="stage-head">
               <div>
-                <div class="kicker reveal-left" style="--delay:40ms" data-editable>内部策划与生产平台</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>把一次性创作方法，沉淀为可复用的生产系统</h1>
+                <div class="kicker reveal-left" style="--delay:40ms" data-editable>策划生产平台为什么必须存在</div>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>把一次 Demo，变成下一项目可直接复用的内容生产能力</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>统一管理需求、脚本、分镜、Prompt、资产绑定、样片确认和版本，减少重复劳动与失控修改。</p>
+              <p class="section-note reveal" style="--delay:140ms" data-editable>没有这一层，每个项目都要从零写脚本、调 Prompt、试模型；有了它，真实项目验证过的方法会沉淀成标准流程和方案包。</p>
             </div>
 
-            <div class="platform-layout">
-              <article class="platform-column reveal" style="--delay:170ms">
-                <div class="panel-title"><span>策划工作台</span><strong>INPUT</strong></div>
-                <div class="planning-list">
-                  <div class="planning-item" data-editable><span>01</span><b>项目目标与客户约束</b></div>
-                  <div class="planning-item" data-editable><span>02</span><b>故事脚本与核心主旨</b></div>
-                  <div class="planning-item" data-editable><span>03</span><b>分镜与时间轴</b></div>
-                  <div class="planning-item" data-editable><span>04</span><b>角色、场景、道具与声音资产</b></div>
-                  <div class="planning-item" data-editable><span>05</span><b>客户确认记录与变更</b></div>
-                  <div class="planning-item" data-editable><span>06</span><b>可复用场景方案包</b></div>
+            <div class="production-value-flow">
+              <article class="production-end reveal" style="--delay:170ms">
+                <div class="production-end-head"><span>INPUT</span><h3 data-editable>真实项目输入</h3></div>
+                <div class="production-end-item" data-editable><b>业务目标与受众</b><p>项目要解决什么问题、影响谁</p></div>
+                <div class="production-end-item" data-editable><b>内容与媒资边界</b><p>主题、故事方向、可用资产和授权</p></div>
+                <div class="production-end-item" data-editable><b>发行与体验场景</b><p>入口、用户路径、传播和交付要求</p></div>
+                <div class="production-end-item" data-editable><b>预算与验收标准</b><p>周期、画质、成本和客户确认口径</p></div>
+              </article>
+
+              <div class="production-arrow reveal" style="--delay:200ms" aria-hidden="true">→</div>
+
+              <article class="production-engine reveal" style="--delay:230ms">
+                <div class="production-engine-head"><span>STANDARD WORKFLOW</span><h3 data-editable>策划生产标准流程</h3></div>
+                <div class="production-steps">
+                  <div class="production-step" data-editable><span>01</span><b>内容策略</b><p>目标转成主题、主旨与叙事方向</p></div>
+                  <div class="production-step" data-editable><span>02</span><b>脚本分镜</b><p>拆解情节、镜头、时长与节奏</p></div>
+                  <div class="production-step" data-editable><span>03</span><b>资产绑定</b><p>关联人物、场景、媒资与授权</p></div>
+                  <div class="production-step" data-editable><span>04</span><b>生成配置</b><p>固化 Prompt、模型、参数与约束</p></div>
+                  <div class="production-step" data-editable><span>05</span><b>样片确认</b><p>真实生成、客户确认、修改定版</p></div>
+                </div>
+                <div class="production-control">
+                  <span data-editable>客户确认节点</span>
+                  <span data-editable>全过程版本追溯</span>
+                  <span data-editable>成本与质量记录</span>
                 </div>
               </article>
 
-              <article class="platform-column reveal" style="--delay:220ms">
-                <div class="panel-title"><span>Prompt 结构</span><strong>9 MODULES</strong></div>
-                <div class="prompt-grid-v2">
-                  <div class="prompt-unit-v2" data-editable><span>01</span><b>输出规格</b><p>模型、画质、时长、画幅</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>02</span><b>资产绑定</b><p>人物、场景、道具、声音引用</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>03</span><b>故事目标</b><p>主题、传播意图、情绪落点</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>04</span><b>风格质感</b><p>项目统一视觉与材质表达</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>05</span><b>分镜节奏</b><p>每镜时长、事件与衔接关系</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>06</span><b>角色表演</b><p>动作、表情、走位与互动</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>07</span><b>镜头画面</b><p>景别、机位、运动、光影构图</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>08</span><b>台词声音</b><p>台词、音色、环境声与节奏</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>09</span><b>约束质检</b><p>角色一致性、禁用项与质量要求</p></div>
-                </div>
-              </article>
+              <div class="production-arrow reveal" style="--delay:260ms" aria-hidden="true">→</div>
 
-              <article class="platform-column reveal" style="--delay:270ms">
-                <div class="panel-title"><span>样片验证</span><strong>OUTPUT</strong></div>
-                <div class="verify-list">
-                  <div class="verify-item" data-editable><span>01</span><b>故事脚本预览</b></div>
-                  <div class="verify-item" data-editable><span>02</span><b>视频故事板预览</b></div>
-                  <div class="verify-item" data-editable><span>03</span><b>测试视频生成</b></div>
-                  <div class="verify-item" data-editable><span>04</span><b>成品样片预览</b></div>
-                  <div class="verify-item" data-editable><span>05</span><b>客户确认版样片</b></div>
-                </div>
+              <article class="production-end output reveal" style="--delay:290ms">
+                <div class="production-end-head"><span>OUTPUT</span><h3 data-editable>可复用方案包</h3></div>
+                <div class="production-end-item" data-editable><b>内容模板</b><p>验证过的主题、脚本和分镜结构</p></div>
+                <div class="production-end-item" data-editable><b>生成配置</b><p>Prompt、模型参数和质量约束</p></div>
+                <div class="production-end-item" data-editable><b>资产关系</b><p>人物、场景、媒资及授权映射</p></div>
+                <div class="production-end-item" data-editable><b>项目基准数据</b><p>实际周期、成功率、成本和效果</p></div>
               </article>
             </div>
 
-            <div class="version-strip-v2 reveal" style="--delay:320ms">
-              <div>
-                <span data-editable>项目版本</span><span data-editable>脚本版本</span><span data-editable>分镜版本</span><span data-editable>Prompt版本</span><span data-editable>模型版本</span><span data-editable>资产版本</span><span data-editable>结果版本</span>
-              </div>
-              <p class="version-rule-v2" data-editable>只新建版本，不覆盖历史；每个生成任务冻结所用版本，客户确认与最终结果可追溯。</p>
+            <div class="production-outcomes reveal" style="--delay:330ms">
+              <article class="production-outcome"><span>VALUE / 01</span><h3 data-editable>缩短下一项目周期</h3><p data-editable>同类场景直接调用经过验证的内容模板和生成配置。</p></article>
+              <article class="production-outcome"><span>VALUE / 02</span><h3 data-editable>稳定交付质量</h3><p data-editable>客户确认、版本、资产与成片保持一致并可追溯。</p></article>
+              <article class="production-outcome"><span>VALUE / 03</span><h3 data-editable>降低重复试错成本</h3><p data-editable>用真实生成成本和质量数据指导模型选择与报价。</p></article>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>06 / PROMPT &amp; VERSION</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>06 / PROJECT → REUSABLE CAPABILITY</span></div>
         </div>
       </section>
 
@@ -4067,8 +4262,8 @@
                   <div class="person-card-v2" data-editable><span>01</span><h3>项目负责人</h3><b>黄海睿</b><p>统筹目标、资源、节奏、风险与决策</p></div>
                   <div class="person-card-v2" data-editable><span>02</span><h3>需求与商务</h3><b>陈莎莎</b><p>项目获取、客户沟通与商业边界</p></div>
                   <div class="person-card-v2" data-editable><span>03</span><h3>内容策划生产</h3><b>林宏炜、杨芷茵</b><p>脚本、分镜、Prompt、样片与内容交付</p></div>
-                  <div class="person-card-v2" data-editable><span>04</span><h3>产品与研发</h3><b>周俊杰、林宏炜</b><p>产品设计、H5、后台、模型链路与数据能力</p></div>
-                  <div class="person-card-v2" data-editable><span>05</span><h3>媒资数据与模型</h3><b>研发部人员</b><p>清洗训练、模型适配与部署支持</p></div>
+                  <div class="person-card-v2" data-editable><span>04</span><h3>产品与研发</h3><b>周俊杰、林宏炜、研发部人员</b><p>产品设计、H5、后台、模型链路与数据能力</p></div>
+                  <div class="person-card-v2" data-editable><span>05</span><h3>媒资数据与模型</h3><b>周俊杰、研发部人员</b><p>媒资库资产清洗训练、后续本地模型适配协助与部署支持</p></div>
                   <div class="person-card-v2" data-editable><span>06</span><h3>发行与交付</h3><b>杨芷茵、陈莎莎</b><p>发行配置、客户交付、现场支持与复盘</p></div>
                 </div>
               </article>
