@@ -143,6 +143,8 @@
 
       .nav-dots,
       .slide-count,
+      .edit-toggle,
+      .save-toast,
       .pdf-export {
         display: none !important;
       }
@@ -3778,28 +3780,91 @@
     }
 
     /* ===========================================
-       PDF EXPORT
-       Direct download of the current 8-slide edition.
+       INLINE EDITING
+       The top-left pencil toggles browser-local editing.
        =========================================== */
-    .pdf-export {
+    .edit-toggle {
       position: fixed;
       top: 18px;
       left: 18px;
       z-index: 10001;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      min-height: 42px;
-      padding: 0 15px;
+      width: 42px;
+      height: 42px;
+      padding: 0;
       border: 1px solid rgba(240, 236, 229, 0.34);
       border-radius: 0;
       color: var(--cream);
       background: rgba(17, 17, 17, 0.92);
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+      font-size: 21px;
+      cursor: pointer;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .edit-toggle:hover,
+    .edit-toggle:focus-visible,
+    .edit-toggle.active {
+      border-color: var(--fire);
+      color: var(--ink);
+      background: var(--fire);
+      transform: translateY(-1px);
+    }
+
+    .save-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      z-index: 10002;
+      padding: 10px 14px;
+      color: var(--cream);
+      background: rgba(17, 17, 17, 0.94);
       font-family: var(--font-mono);
       font-size: 12px;
+      opacity: 0;
+      transform: translate(-50%, 18px);
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .save-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .edit-mode [data-editable] {
+      outline: 1px dashed rgba(232, 93, 38, 0.7);
+      outline-offset: 4px;
+      cursor: text;
+    }
+
+    .orange.edit-mode [data-editable],
+    .edit-mode .orange [data-editable] {
+      outline-color: rgba(17, 17, 17, 0.6);
+    }
+
+    /* ===========================================
+       PDF EXPORT
+       Compact bottom-left download badge.
+       =========================================== */
+    .pdf-export {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 10001;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 28px;
+      padding: 0 8px;
+      border: 1px solid rgba(240, 236, 229, 0.34);
+      border-radius: 0;
+      color: var(--cream);
+      background: rgba(17, 17, 17, 0.92);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.20);
+      font-family: var(--font-mono);
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       line-height: 1;
       text-decoration: none;
       cursor: pointer;
@@ -3809,11 +3874,11 @@
     .pdf-export::before {
       content: "↓";
       display: grid;
-      width: 20px;
-      height: 20px;
+      width: 14px;
+      height: 14px;
       place-items: center;
       border: 1px solid currentColor;
-      font-size: 15px;
+      font-size: 10px;
       line-height: 1;
     }
 
@@ -4324,6 +4389,10 @@
   <div class="slide-count" id="slideCount" aria-live="polite">01 / 08</div>
   <div class="portrait-hint">建议横屏查看 · 左右滑动翻页</div>
 
+  <!-- Browser-local inline editing -->
+  <button class="edit-toggle" id="editToggle" type="button" title="编辑文字（E）" aria-label="切换文字编辑模式">✎</button>
+  <div class="save-toast" id="saveToast">已保存到浏览器</div>
+
   <!-- Current-version PDF download -->
   <a
     class="pdf-export"
@@ -4462,6 +4531,103 @@
     }
 
     const presentation = new SlidePresentation();
+
+    /* ===========================================
+       INLINE TEXT EDITOR
+       E toggles editing; content auto-saves locally.
+       Cmd/Ctrl+S downloads a standalone edited copy.
+       =========================================== */
+    class InlineEditor {
+      constructor() {
+        this.isActive = false;
+        this.elements = Array.from(document.querySelectorAll("[data-editable]"));
+        this.toggle = document.getElementById("editToggle");
+        this.toast = document.getElementById("saveToast");
+        this.storagePrefix = "ai-image-hall-broadside-compact:";
+        this.assignKeys();
+        this.restore();
+        this.bindInputs();
+      }
+
+      assignKeys() {
+        this.elements.forEach((element, index) => {
+          if (!element.dataset.editKey) {
+            element.dataset.editKey = `content-${String(index + 1).padStart(3, "0")}`;
+          }
+        });
+      }
+
+      restore() {
+        this.elements.forEach((element) => {
+          const saved = localStorage.getItem(this.storagePrefix + element.dataset.editKey);
+          if (saved !== null) element.innerHTML = saved;
+        });
+      }
+
+      bindInputs() {
+        this.elements.forEach((element) => {
+          element.addEventListener("input", () => {
+            localStorage.setItem(this.storagePrefix + element.dataset.editKey, element.innerHTML);
+            this.showToast("已保存到浏览器");
+          });
+        });
+      }
+
+      toggleEditMode() {
+        this.isActive = !this.isActive;
+        document.body.classList.toggle("edit-mode", this.isActive);
+        this.toggle.classList.toggle("active", this.isActive);
+        this.toggle.setAttribute("aria-pressed", String(this.isActive));
+        this.elements.forEach((element) => {
+          element.setAttribute("contenteditable", String(this.isActive));
+          element.setAttribute("spellcheck", "false");
+        });
+        this.showToast(this.isActive ? "编辑模式已开启" : "编辑模式已关闭");
+      }
+
+      showToast(message) {
+        this.toast.textContent = message;
+        this.toast.classList.add("show");
+        window.clearTimeout(this.toastTimer);
+        this.toastTimer = window.setTimeout(() => this.toast.classList.remove("show"), 1200);
+      }
+
+      downloadHtml() {
+        const clone = document.documentElement.cloneNode(true);
+        clone.querySelectorAll(".slide").forEach((slide, index) => {
+          slide.classList.toggle("active", index === 0);
+          slide.classList.toggle("visible", index === 0);
+          slide.setAttribute("aria-hidden", String(index !== 0));
+        });
+        clone.querySelectorAll("[contenteditable]").forEach((element) => {
+          element.removeAttribute("contenteditable");
+        });
+        clone.querySelector("body").classList.remove("edit-mode");
+        const toggle = clone.querySelector("#editToggle");
+        if (toggle) toggle.classList.remove("active");
+        const html = "<!doctype html>\n" + clone.outerHTML;
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "AI影像馆_集团AIGC项目汇报_8页清晰版_已编辑.html";
+        link.click();
+        URL.revokeObjectURL(link.href);
+        this.showToast("已下载编辑版 HTML");
+      }
+    }
+
+    const editor = new InlineEditor();
+    document.getElementById("editToggle").addEventListener("click", () => editor.toggleEditMode());
+
+    document.addEventListener("keydown", (event) => {
+      if ((event.key === "e" || event.key === "E") && !(event.target && event.target.isContentEditable)) {
+        editor.toggleEditMode();
+      }
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+        editor.downloadHtml();
+      }
+    });
   </script>
 </body>
 </html>
