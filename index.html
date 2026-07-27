@@ -143,10 +143,19 @@
 
       .nav-dots,
       .slide-count,
-      .edit-hotzone,
-      .edit-toggle,
-      .save-toast {
+      .pdf-export {
         display: none !important;
+      }
+
+      .reveal,
+      .reveal-left,
+      .reveal-scale,
+      .reveal-blur {
+        visibility: visible !important;
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        animation: none !important;
       }
     }
 
@@ -3752,7 +3761,7 @@
     @media (max-width: 700px) and (orientation: portrait) {
       .portrait-hint {
         position: fixed;
-        top: 28px;
+        top: 76px;
         left: 50%;
         z-index: 10003;
         display: block;
@@ -3769,79 +3778,51 @@
     }
 
     /* ===========================================
-       INLINE EDITING
-       Hover top-left or press E; Cmd/Ctrl+S exports.
+       PDF EXPORT
+       Direct download of the current 8-slide edition.
        =========================================== */
-    .edit-hotzone {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
-    }
-
-    .edit-toggle {
+    .pdf-export {
       position: fixed;
       top: 18px;
       left: 18px;
       z-index: 10001;
-      width: 42px;
-      height: 42px;
-      padding: 0;
-      border: 1px solid rgba(240, 236, 229, 0.30);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid rgba(240, 236, 229, 0.34);
       border-radius: 0;
       color: var(--cream);
       background: rgba(17, 17, 17, 0.92);
-      font-size: 21px;
-      opacity: 0;
-      pointer-events: none;
-      cursor: pointer;
-      transition: opacity 260ms ease, background 260ms ease;
-    }
-
-    .edit-toggle.show,
-    .edit-toggle.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .edit-toggle.active {
-      color: var(--ink);
-      background: var(--fire);
-    }
-
-    .save-toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      z-index: 10002;
-      padding: 10px 14px;
-      color: var(--cream);
-      background: rgba(17, 17, 17, 0.94);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
       font-family: var(--font-mono);
       font-size: 12px;
-      opacity: 0;
-      transform: translate(-50%, 18px);
-      pointer-events: none;
-      transition: opacity 220ms ease, transform 220ms ease;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
     }
 
-    .save-toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
+    .pdf-export::before {
+      content: "↓";
+      display: grid;
+      width: 20px;
+      height: 20px;
+      place-items: center;
+      border: 1px solid currentColor;
+      font-size: 15px;
+      line-height: 1;
     }
 
-    .edit-mode [data-editable] {
-      outline: 1px dashed rgba(232, 93, 38, 0.7);
-      outline-offset: 4px;
-      cursor: text;
-    }
-
-    .orange.edit-mode [data-editable],
-    .edit-mode .orange [data-editable] {
-      outline-color: rgba(17, 17, 17, 0.6);
+    .pdf-export:hover,
+    .pdf-export:focus-visible {
+      border-color: var(--fire);
+      color: var(--ink);
+      background: var(--fire);
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -4343,10 +4324,13 @@
   <div class="slide-count" id="slideCount" aria-live="polite">01 / 08</div>
   <div class="portrait-hint">建议横屏查看 · 左右滑动翻页</div>
 
-  <!-- Inline editing controls -->
-  <div class="edit-hotzone" aria-hidden="true"></div>
-  <button class="edit-toggle" id="editToggle" type="button" title="编辑模式（E）" aria-label="切换编辑模式">✎</button>
-  <div class="save-toast" id="saveToast">已保存到浏览器</div>
+  <!-- Current-version PDF download -->
+  <a
+    class="pdf-export"
+    href="downloads/AI影像馆_集团AIGC项目汇报_8页版.pdf"
+    download="AI影像馆_集团AIGC项目汇报_8页版.pdf"
+    aria-label="下载当前8页汇报PDF"
+  >导出 PDF</a>
 
   <script>
     /* ===========================================
@@ -4477,125 +4461,7 @@
       }
     }
 
-    /* ===========================================
-       INLINE TEXT EDITOR
-       E toggles editing; content auto-saves locally.
-       Cmd/Ctrl+S downloads a standalone edited copy.
-       =========================================== */
-    class InlineEditor {
-      constructor() {
-        this.isActive = false;
-        this.elements = Array.from(document.querySelectorAll("[data-editable]"));
-        this.toggle = document.getElementById("editToggle");
-        this.toast = document.getElementById("saveToast");
-        this.storagePrefix = "ai-image-hall-broadside-compact:";
-        this.assignKeys();
-        this.restore();
-        this.bindInputs();
-      }
-
-      assignKeys() {
-        this.elements.forEach((element, index) => {
-          if (!element.dataset.editKey) {
-            element.dataset.editKey = `content-${String(index + 1).padStart(3, "0")}`;
-          }
-        });
-      }
-
-      restore() {
-        this.elements.forEach((element) => {
-          const saved = localStorage.getItem(this.storagePrefix + element.dataset.editKey);
-          if (saved !== null) element.innerHTML = saved;
-        });
-      }
-
-      bindInputs() {
-        this.elements.forEach((element) => {
-          element.addEventListener("input", () => {
-            localStorage.setItem(this.storagePrefix + element.dataset.editKey, element.innerHTML);
-            this.showToast("已保存到浏览器");
-          });
-        });
-      }
-
-      toggleEditMode() {
-        this.isActive = !this.isActive;
-        document.body.classList.toggle("edit-mode", this.isActive);
-        this.toggle.classList.toggle("active", this.isActive);
-        this.toggle.setAttribute("aria-pressed", String(this.isActive));
-        this.elements.forEach((element) => {
-          element.setAttribute("contenteditable", String(this.isActive));
-          element.setAttribute("spellcheck", "false");
-        });
-        this.showToast(this.isActive ? "编辑模式已开启" : "编辑模式已关闭");
-      }
-
-      showToast(message) {
-        this.toast.textContent = message;
-        this.toast.classList.add("show");
-        window.clearTimeout(this.toastTimer);
-        this.toastTimer = window.setTimeout(() => this.toast.classList.remove("show"), 1200);
-      }
-
-      downloadHtml() {
-        const clone = document.documentElement.cloneNode(true);
-        clone.querySelectorAll(".slide").forEach((slide, index) => {
-          slide.classList.toggle("active", index === 0);
-          slide.classList.toggle("visible", index === 0);
-          slide.setAttribute("aria-hidden", String(index !== 0));
-        });
-        clone.querySelectorAll("[contenteditable]").forEach((element) => {
-          element.removeAttribute("contenteditable");
-        });
-        clone.querySelector("body").classList.remove("edit-mode");
-        const toggle = clone.querySelector("#editToggle");
-        if (toggle) toggle.classList.remove("active", "show");
-        const html = "<!doctype html>\n" + clone.outerHTML;
-        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "AI影像馆_集团AIGC项目汇报_8页清晰版_已编辑.html";
-        link.click();
-        URL.revokeObjectURL(link.href);
-        this.showToast("已下载编辑版 HTML");
-      }
-    }
-
     const presentation = new SlidePresentation();
-    const editor = new InlineEditor();
-
-    /* Edit toggle: hover hotzone with 400ms grace period */
-    const hotzone = document.querySelector(".edit-hotzone");
-    const editToggle = document.getElementById("editToggle");
-    let hideTimeout = null;
-
-    hotzone.addEventListener("mouseenter", () => {
-      clearTimeout(hideTimeout);
-      editToggle.classList.add("show");
-    });
-    hotzone.addEventListener("mouseleave", () => {
-      hideTimeout = setTimeout(() => {
-        if (!editor.isActive) editToggle.classList.remove("show");
-      }, 400);
-    });
-    editToggle.addEventListener("mouseenter", () => clearTimeout(hideTimeout));
-    editToggle.addEventListener("mouseleave", () => {
-      hideTimeout = setTimeout(() => {
-        if (!editor.isActive) editToggle.classList.remove("show");
-      }, 400);
-    });
-    editToggle.addEventListener("click", () => editor.toggleEditMode());
-    hotzone.addEventListener("click", () => editor.toggleEditMode());
-
-    document.addEventListener("keydown", (event) => {
-      if ((event.key === "e" || event.key === "E") && !(event.target && event.target.isContentEditable)) {
-        editor.toggleEditMode();
-      }
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
-        event.preventDefault();
-        editor.downloadHtml();
-      }
-    });
   </script>
 </body>
 </html>
