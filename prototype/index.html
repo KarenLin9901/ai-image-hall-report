@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#8f281b">
+  <title>深圳城市影像馆｜四步生成城市记忆短片</title>
+  <style>
+    :root{
+      --paper:#f4ead9;--paper-2:#fffaf0;--ink:#211712;--muted:#75655a;
+      --red:#9f3022;--red-dark:#6f1d14;--gold:#b98a52;--line:rgba(91,57,38,.18);
+      --shadow:0 28px 70px rgba(45,24,13,.24);--radius:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:#1a1411}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 12% 10%,rgba(159,48,34,.22),transparent 30%),
+        radial-gradient(circle at 88% 86%,rgba(185,138,82,.18),transparent 28%),
+        linear-gradient(135deg,#17110e 0%,#2a1d17 48%,#120e0c 100%);
+    }
+    .demo-shell{min-height:100vh;display:grid;grid-template-columns:minmax(280px,420px) minmax(390px,520px) minmax(260px,380px);gap:clamp(22px,4vw,68px);align-items:center;justify-content:center;padding:36px 5vw;overflow:hidden;position:relative}
+    .demo-shell:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.76' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E")}
+    .brief,.journey{position:relative;z-index:1;color:#f8eee0}
+    .eyebrow{display:flex;align-items:center;gap:10px;color:#d8b790;font-size:12px;letter-spacing:.16em;font-weight:700}
+    .eyebrow:before{content:"";width:32px;height:2px;background:#c54a37}
+    .brief h1{font-family:"Songti SC","STSong",serif;font-size:clamp(42px,4vw,70px);line-height:1.06;letter-spacing:-.05em;margin:20px 0 18px}
+    .brief h1 span{display:block;color:#dc5b45}
+    .brief .desc{font-size:16px;line-height:1.8;color:#cfc0b4;max-width:390px}
+    .proof{margin-top:32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .proof div{padding:14px 15px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:14px}
+    .proof strong{display:block;color:#fff3e5;font-size:15px;margin-bottom:4px}
+    .proof span{font-size:12px;color:#a9988c}
+    .journey-title{font-size:12px;letter-spacing:.16em;color:#d8b790;margin-bottom:18px}
+    .step-list{display:grid;gap:12px}
+    .step-chip{width:100%;display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:#e9ddd1;border-radius:18px;padding:12px;transition:.25s}
+    .step-chip:hover,.step-chip.active{transform:translateX(-6px);border-color:rgba(220,91,69,.6);background:rgba(159,48,34,.2)}
+    .step-chip b{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#30221c;color:#d8b790}
+    .step-chip.active b,.step-chip.done b{background:#9f3022;color:white}
+    .step-chip strong{display:block;font-size:15px;margin-bottom:3px}
+    .step-chip small{color:#9f8f83}
+    .step-chip i{font-style:normal;color:#d9b99a}
+    .system-note{margin-top:18px;padding:15px;border-left:2px solid #9f3022;background:rgba(0,0,0,.14);color:#aa998d;font-size:12px;line-height:1.7}
+    .phone-wrap{position:relative;z-index:2;display:flex;justify-content:center}
+    .phone{position:relative;width:min(430px,88vw);height:min(860px,90vh);min-height:700px;border:10px solid #0c0b0a;border-radius:54px;background:#111;box-shadow:0 40px 90px rgba(0,0,0,.48),0 0 0 2px #4a4039;overflow:hidden}
+    .phone:before{content:"";position:absolute;z-index:20;top:11px;left:50%;transform:translateX(-50%);width:112px;height:28px;border-radius:18px;background:#050505}
+    .app{height:100%;position:relative;overflow:hidden;background:var(--paper);isolation:isolate}
+    .app:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.28;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E")}
+    .statusbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:10px 24px 0;font-size:13px;font-weight:700;position:relative;z-index:5}
+    .status-icons{letter-spacing:2px}
+    .screen{position:absolute;inset:48px 0 0;display:none;flex-direction:column;overflow:auto;overscroll-behavior:contain}
+    .screen.active{display:flex;animation:enter .36s ease both}
+    @keyframes enter{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+    .topbar{display:grid;grid-template-columns:46px 1fr 46px;align-items:center;padding:6px 18px 12px;position:sticky;top:0;z-index:7;background:linear-gradient(var(--paper) 76%,transparent)}
+    .topbar h2{font-family:"Songti SC","STSong",serif;text-align:center;font-size:20px;margin:0}
+    .icon-btn{border:0;background:transparent;color:var(--ink);font-size:24px;width:42px;height:42px;border-radius:50%}
+    .logo{font-weight:900;color:var(--red);font-size:16px;transform:rotate(-3deg)}
+    .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 22px 14px}
+    .progress span{height:4px;background:rgba(73,45,30,.14);border-radius:9px;overflow:hidden}
+    .progress span.on{background:var(--red)}
+    .content{padding:6px 22px 26px;flex:1}
+    .kicker{font-size:11px;letter-spacing:.14em;color:var(--red);font-weight:800;margin-bottom:7px}
+    .content h3{font-family:"Songti SC","STSong",serif;font-size:30px;line-height:1.2;margin:0 0 8px}
+    .sub{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 18px}
+    .paper-card{background:rgba(255,250,240,.8);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 28px rgba(80,46,27,.08);padding:16px}
+    .photo-drop{min-height:220px;display:grid;place-items:center;text-align:center;border:1.5px dashed rgba(159,48,34,.42);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.58),rgba(204,174,134,.12));position:relative;overflow:hidden}
+    .portrait{width:108px;height:108px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#dec9aa,#9f6e4e);color:white;font-size:48px;border:5px solid rgba(255,255,255,.72);box-shadow:0 12px 30px rgba(63,31,15,.2)}
+    .photo-drop strong{display:block;margin-top:12px}
+    .photo-drop p{font-size:12px;color:var(--muted);margin:5px 0 0}
+    .ghost-btn{border:1px solid rgba(159,48,34,.34);color:var(--red);background:rgba(255,255,255,.42);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;margin-top:12px}
+    .photo-actions{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+    .auth-row,.voice-row{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:12px;line-height:1.5;color:#59483d}
+    .auth-row input{accent-color:var(--red);margin-top:2px}
+    .voice-row{align-items:center;justify-content:space-between;padding:13px 14px;border-radius:14px;background:rgba(140,93,59,.07)}
+    .switch{width:42px;height:24px;border:0;border-radius:99px;background:#c7b7a6;padding:3px;transition:.2s}
+    .switch:after{content:"";display:block;width:18px;height:18px;border-radius:50%;background:white;transition:.2s}
+    .switch.on{background:var(--red)}
+    .switch.on:after{transform:translateX(18px)}
+    .bottom-action{position:sticky;bottom:0;padding:14px 22px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--paper) 24%)}
+    .primary{width:100%;border:0;border-radius:16px;padding:15px 18px;background:linear-gradient(135deg,var(--red),var(--red-dark));color:white;font-weight:800;box-shadow:0 12px 24px rgba(111,29,20,.25);transition:.2s}
+    .primary:hover{transform:translateY(-1px)}
+    .primary:disabled{opacity:.42;box-shadow:none;cursor:not-allowed}
+    .scene-list{display:grid;gap:11px}
+    .scene-card{display:grid;grid-template-columns:104px 1fr 24px;gap:13px;align-items:center;text-align:left;border:1px solid var(--line);background:rgba(255,250,240,.74);border-radius:20px;padding:9px;transition:.2s}
+    .scene-card.selected{border:2px solid var(--red);padding:8px;box-shadow:0 10px 26px rgba(111,29,20,.15)}
+    .scene-art{height:88px;border-radius:14px;position:relative;overflow:hidden;background:linear-gradient(160deg,#b99b74,#5c493b)}
+    .scene-art:before{content:"";position:absolute;inset:24px 7px 0;background:repeating-linear-gradient(90deg,#332a25 0 8px,#725a48 8px 13px);clip-path:polygon(0 42%,10% 38%,10% 20%,22% 20%,22% 34%,35% 34%,35% 5%,48% 5%,48% 26%,58% 26%,58% 12%,72% 12%,72% 40%,85% 40%,85% 28%,100% 28%,100% 100%,0 100%)}
+    .scene-art:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(26,15,10,.35))}
+    .scene-art.harbor{background:linear-gradient(#cfb28a 0 48%,#78939a 48% 70%,#435b62 70%)}
+    .scene-art.old{background:linear-gradient(150deg,#d9c2a2,#6d4a36);filter:sepia(.35)}
+    .scene-copy strong{display:block;font-size:15px;margin-bottom:5px}
+    .scene-copy span{display:block;font-size:11px;color:var(--muted);line-height:1.45}
+    .radio{width:19px;height:19px;border:1px solid #ad9582;border-radius:50%}
+    .selected .radio{border:5px solid var(--red)}
+    .dialogue-box{position:relative}
+    textarea{width:100%;min-height:134px;resize:none;border:1px solid var(--line);border-radius:18px;background:rgba(255,253,247,.72);padding:15px;color:var(--ink);outline:none;line-height:1.7}
+    textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(159,48,34,.08)}
+    .count{position:absolute;right:13px;bottom:10px;color:#88776a;font-size:11px}
+    .fixed-note{margin-top:12px;padding:13px;border-radius:15px;background:#ead9bf;color:#614c3f;font-size:12px;line-height:1.55}
+    .fixed-note strong{color:var(--red)}
+    .summary{margin-top:12px;display:grid;grid-template-columns:64px 1fr;gap:11px;align-items:center}
+    .summary .mini{height:64px;border-radius:13px;background:linear-gradient(145deg,#c6a87f,#664b3b);position:relative;overflow:hidden}
+    .summary p{margin:3px 0;color:var(--muted);font-size:11px;line-height:1.5}
+    .generating{align-items:center;justify-content:center;text-align:center;padding:36px}
+    .seal-loader{width:132px;height:132px;border:2px solid rgba(159,48,34,.28);border-radius:50%;display:grid;place-items:center;position:relative;color:var(--red);font-family:"Songti SC","STSong",serif;font-size:22px;font-weight:800}
+    .seal-loader:before{content:"";position:absolute;inset:-8px;border:3px dashed var(--red);border-radius:50%;animation:spin 5s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .bar{width:100%;height:8px;border-radius:99px;background:#dbc8af;margin:28px 0 10px;overflow:hidden}
+    .bar i{display:block;height:100%;width:0;background:var(--red);transition:width .25s}
+    .generating p{font-size:12px;color:var(--muted);line-height:1.7}
+    .result-hero{height:320px;border-radius:24px;position:relative;overflow:hidden;background:linear-gradient(165deg,#d6b78d,#473329 68%,#211712);box-shadow:var(--shadow)}
+    .result-hero:before{content:"";position:absolute;inset:62px 16px 0;background:#221a16;clip-path:polygon(0 43%,9% 43%,9% 15%,20% 15%,20% 35%,31% 35%,31% 0,44% 0,44% 26%,58% 26%,58% 8%,69% 8%,69% 40%,80% 40%,80% 22%,93% 22%,93% 46%,100% 46%,100% 100%,0 100%);opacity:.9}
+    .result-hero:after{content:"华强北 · 1998";position:absolute;left:18px;bottom:18px;color:white;font-size:13px;letter-spacing:.12em}
+    .play{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.16);backdrop-filter:blur(8px);border-radius:50%;color:white;font-size:25px}
+    .result-title{font-family:"Songti SC","STSong",serif;font-size:24px;margin:18px 0 4px}
+    .result-meta{font-size:12px;color:var(--muted)}
+    .action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+    .secondary{border:1px solid var(--line);background:rgba(255,250,240,.74);border-radius:15px;padding:13px;font-size:13px;font-weight:700;color:var(--ink)}
+    .secondary.accent{background:var(--red);border-color:var(--red);color:white}
+    .toast{position:absolute;left:50%;bottom:28px;z-index:30;transform:translate(-50%,18px);padding:11px 17px;border-radius:99px;background:#211712;color:white;font-size:12px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .intro{position:absolute;inset:0;z-index:25;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 24px 42px;color:white;background:
+      linear-gradient(180deg,rgba(22,14,10,.04) 15%,rgba(22,14,10,.92) 82%),
+      linear-gradient(145deg,#d7b98f 0%,#9f6b4c 44%,#30231d 100%)}
+    .intro:before{content:"";position:absolute;inset:120px 0 0;background:#2c211c;clip-path:polygon(0 53%,8% 53%,8% 29%,18% 29%,18% 48%,28% 48%,28% 16%,41% 16%,41% 43%,52% 43%,52% 7%,64% 7%,64% 46%,76% 46%,76% 25%,89% 25%,89% 50%,100% 50%,100% 100%,0 100%);opacity:.66}
+    .intro>*{position:relative}
+    .brand{font-weight:900;font-size:17px;margin-bottom:auto;margin-top:18px}
+    .brand span{color:#ff765e}
+    .stamp{width:88px;height:88px;border:2px solid rgba(255,224,191,.68);border-radius:50%;display:grid;place-items:center;text-align:center;transform:rotate(-8deg);font-family:"Songti SC","STSong",serif;color:#ffe5c9;margin-bottom:20px}
+    .intro h2{font-family:"Songti SC","STSong",serif;font-size:40px;line-height:1.1;margin:0 0 12px}
+    .intro p{margin:0 0 24px;color:#e9d8c8;font-size:13px;line-height:1.7}
+    .intro .primary{background:#fff6e8;color:var(--red-dark);box-shadow:none}
+    .hidden{display:none!important}
+    @media(max-width:1120px){.demo-shell{grid-template-columns:minmax(360px,500px) minmax(240px,330px)}.brief{display:none}}
+    @media(max-width:760px){
+      body{background:var(--paper)}
+      .demo-shell{display:block;padding:0;min-height:100vh}
+      .journey{display:none}
+      .phone{width:100vw;height:100vh;min-height:640px;border:0;border-radius:0;box-shadow:none}
+      .phone:before{display:none}
+      .statusbar{padding-top:max(10px,env(safe-area-inset-top));height:calc(44px + env(safe-area-inset-top))}
+      .screen{inset:calc(44px + env(safe-area-inset-top)) 0 0}
+    }
+  </style>
+</head>
+<body>
+  <main class="demo-shell">
+    <section class="brief" aria-label="演示说明">
+      <div class="eyebrow">AI IMAGE HALL · MVP FLOW</div>
+      <h1>四步生成<br><span>城市记忆短片</span></h1>
+      <p class="desc">用户只提供必要变量，固定脚本、分镜与生成规则由系统完成。把复杂制作流程压缩成一次清楚、可信、可分享的互动体验。</p>
+      <div class="proof">
+        <div><strong>单一主角</strong><span>上传一张清晰照片</span></div>
+        <div><strong>三个场景</strong><span>选择已跑通模板</span></div>
+        <div><strong>30 字台词</strong><span>有限输入，稳定输出</span></div>
+        <div><strong>15 秒成片</strong><span>查看、下载与分享</span></div>
+      </div>
+    </section>
+
+    <section class="phone-wrap" aria-label="深圳城市影像馆四步原型">
+      <div class="phone">
+        <div class="app" id="app">
+          <div class="statusbar"><span>9:41</span><span class="status-icons">● ◒ ▰</span></div>
+
+          <section class="intro" id="intro">
+            <div class="brand"><span>咣当</span> · 深圳城市影像馆</div>
+            <div class="stamp">40 年<br>深圳影像</div>
+            <h2>把你的故事<br>放进深圳时光里</h2>
+            <p>一张照片、一个场景、一句台词，生成属于你的 15 秒城市记忆短片。</p>
+            <button class="primary" id="startBtn" data-testid="start">开始生成</button>
+          </section>
+
+          <section class="screen active" data-screen="upload">
+            <header class="topbar"><span class="logo">咣当</span><h2>上传主角</h2><button class="icon-btn" aria-label="帮助">?</button></header>
+            <div class="progress"><span class="on"></span><span></span><span></span><span></span></div>
+            <div class="content">
+              <div class="kicker">STEP 01 · 授权上传</div>
+              <h3>先让故事里<br>出现你的脸</h3>
+              <p class="sub">仅替换一名主角。照片只用于本次短片生成，可按规则申请删除。</p>
+              <div class="paper-card">
+                <div class="photo-drop">
+                  <div>
+                    <div class="portrait" id="portrait">人</div>
+                    <strong id="photoState">上传一张正面清晰照片</strong>
+                    <p>支持 JPG / PNG，建议单人半身照</p>
+                    <div class="photo-actions">
+                      <button class="ghost-btn" id="choosePhoto" data-testid="choose-photo">选择照片</button>
+                      <button class="ghost-btn" id="samplePhoto" data-testid="sample-photo">使用示例</button>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/jpeg,image/png" hidden>
+                  </div>
+                </div>
+                <label class="auth-row"><input type="checkbox" id="authorize" data-testid="authorize"><span>我已阅读并同意素材使用说明，确认拥有照片和声音的使用权。</span></label>
+                <div class="voice-row"><span><strong>声音样本</strong><br><small>可选，用于参考音色</small></span><button class="switch" id="voiceSwitch" aria-label="开启声音样本"></button></div>
+              </div>
+            </div>
+            <footer class="bottom-action"><button class="primary" id="toScenes" data-testid="to-scenes" disabled>下一步 · 选择场景</button></footer>
+          </section>
+
+          <section class="screen" data-screen="scenes">
+            <header class="topbar"><button class="icon-btn back" data-back="upload" aria-label="返回">‹</button><h2>选择场景</h2><span></span></header>
+            <div class="progress"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+            <div class="content">
+              <div class="kicker">STEP 02 · 预设场景</div>
+              <h3>你想回到<br>哪一段深圳时光？</h3>
+              <p class="sub">三个场景都已完成脚本、分镜和画面规则验证。</p>
+              <div class="scene-list">
+                <button class="scene-card selected" data-scene="华强北 · 1998" data-testid="scene-hqb">
+                  <span class="scene-art"></span><span class="scene-copy"><strong>华强北 · 1998</strong><span>电子市场初兴，霓虹与柜台里的创业年代</span></span><span class="radio"></span>
+                </button>
+                <button class="scene-card" data-scene="深圳湾 · 2010" data-testid="scene-bay">
+                  <span class="scene-art harbor"></span><span class="scene-copy"><strong>深圳湾 · 2010</strong><span>跨海大桥通车，城市向世界打开新窗口</span></span><span class="radio"></span>
+                </button>
+                <button class="scene-card" data-scene="南头古城 · 1980" data-testid="scene-old">
+                  <span class="scene-art old"></span><span class="scene-copy"><strong>南头古城 · 1980</strong><span>老城街巷与特区启程交汇的历史瞬间</span></span><span class="radio"></span>
+                </button>
+              </div>
+            </div>
+            <footer class="bottom-action"><button class="primary" id="toDialogue" data-testid="to-dialogue">下一步 · 输入台词</button></footer>
+          </section>
+
+          <section class="screen" data-screen="dialogue">
+            <header class="topbar"><button class="icon-btn back" data-back="scenes" aria-label="返回">‹</button><h2>输入台词</h2><span></span></header>
+            <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+            <div class="content">
+              <div class="kicker">STEP 03 · 台词注入</div>
+              <h3>留下一句<br>你想说的话</h3>
+              <p class="sub">系统会把你的台词放入固定故事结构，用户无需编辑 Prompt。</p>
+              <div class="dialogue-box">
+                <textarea id="dialogue" maxlength="30" data-testid="dialogue" aria-label="输入台词">原来我与深圳的故事，从这里就开始了。</textarea>
+                <span class="count"><b id="count">20</b>/30</span>
+              </div>
+              <div class="fixed-note"><strong>系统固定：</strong>15 秒时长、单一主角、镜头顺序、动作表演、画面风格与质量约束。</div>
+              <div class="paper-card summary">
+                <span class="mini"></span>
+                <div><strong id="sceneSummary">华强北 · 1998</strong><p>主角照片已授权 · 15 秒 · 720p</p><p>声音：<span id="voiceSummary">使用系统默认音色</span></p></div>
+              </div>
+            </div>
+            <footer class="bottom-action"><button class="primary" id="generateBtn" data-testid="generate">确认并生成短片</button></footer>
+          </section>
+
+          <section class="screen generating" data-screen="generating">
+            <div class="seal-loader"><span id="progressText">0%</span></div>
+            <h3>正在生成你的城市记忆</h3>
+            <div class="bar"><i id="progressBar"></i></div>
+            <p id="generationState">正在校验素材并创建任务…</p>
+            <p>系统状态：排队 → 生成 → 质检 → 成片</p>
+          </section>
+
+          <section class="screen" data-screen="result">
+            <header class="topbar"><button class="icon-btn back" data-back="dialogue" aria-label="返回">‹</button><h2>我的作品</h2><span class="logo">咣当</span></header>
+            <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+            <div class="content">
+              <div class="kicker">STEP 04 · 查看分享</div>
+              <div class="result-hero"><button class="play" id="playBtn" aria-label="播放示例">▶</button></div>
+              <h3 class="result-title">我的深圳时光 · <span id="resultScene">华强北</span></h3>
+              <div class="result-meta">15 秒 · 720p · 已完成</div>
+              <div class="paper-card" style="margin-top:14px">
+                <strong>“<span id="resultDialogue">原来我与深圳的故事，从这里就开始了。</span>”</strong>
+              </div>
+              <div class="action-grid">
+                <button class="secondary" id="restartBtn" data-testid="restart">重新生成</button>
+                <button class="secondary" id="downloadBtn" data-testid="download">下载封面</button>
+                <button class="secondary accent" id="shareBtn" data-testid="share">分享作品</button>
+              </div>
+            </div>
+          </section>
+          <div class="toast" id="toast">分享链接已复制</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="journey" aria-label="四步流程导航">
+      <div class="journey-title">CUSTOMER JOURNEY / 用户流程</div>
+      <div class="step-list">
+        <button class="step-chip active" data-jump="upload"><b>01</b><span><strong>授权上传</strong><small>主角照片 · 可选声音</small></span><i>→</i></button>
+        <button class="step-chip" data-jump="scenes"><b>02</b><span><strong>选择场景</strong><small>三个固定内容模板</small></span><i>→</i></button>
+        <button class="step-chip" data-jump="dialogue"><b>03</b><span><strong>输入台词</strong><small>30 字以内，不编辑 Prompt</small></span><i>→</i></button>
+        <button class="step-chip" data-jump="result"><b>04</b><span><strong>查看分享</strong><small>15 秒短片 · 下载分享</small></span><i>✓</i></button>
+      </div>
+      <div class="system-note">生成等待属于系统状态，不增加用户操作步骤。后台完成任务排队、模型调用、质量检查和结果入库。</div>
+    </aside>
+  </main>
+  <script>
+    const screens=[...document.querySelectorAll(".screen")];
+    const chips=[...document.querySelectorAll(".step-chip")];
+    const order=["upload","scenes","dialogue","result"];
+    let current="upload",photoReady=false,selectedScene="华强北 · 1998";
+    const $=s=>document.querySelector(s);
+    function show(name){
+      current=name;
+      screens.forEach(s=>s.classList.toggle("active",s.dataset.screen===name));
+      const normalized=name==="generating"?"dialogue":name;
+      const activeIndex=Math.max(0,order.indexOf(normalized));
+      chips.forEach((c,i)=>{c.classList.toggle("active",i===activeIndex);c.classList.toggle("done",i<activeIndex)});
+      document.querySelector(".app").scrollTop=0;
+    }
+    function validateUpload(){ $("#toScenes").disabled=!(photoReady&&$("#authorize").checked) }
+    $("#startBtn").addEventListener("click",()=>$("#intro").classList.add("hidden"));
+    $("#choosePhoto").addEventListener("click",()=>$("#photoInput").click());
+    $("#photoInput").addEventListener("change",e=>{
+      const file=e.target.files&&e.target.files[0];if(!file)return;
+      const reader=new FileReader();
+      reader.onload=()=>{photoReady=true;$("#portrait").textContent="";$("#portrait").style.background=`center/cover url("${reader.result}")`;$("#photoState").textContent="主角照片已就绪";validateUpload()};
+      reader.readAsDataURL(file);
+    });
+    $("#samplePhoto").addEventListener("click",()=>{
+      photoReady=true;$("#portrait").style.background="linear-gradient(145deg,#dec9aa,#9f6e4e)";$("#portrait").textContent="林";$("#photoState").textContent="示例主角照片已就绪";validateUpload();
+    });
+    $("#authorize").addEventListener("change",validateUpload);
+    $("#voiceSwitch").addEventListener("click",e=>{
+      e.currentTarget.classList.toggle("on");
+      $("#voiceSummary").textContent=e.currentTarget.classList.contains("on")?"参考已授权声音样本":"使用系统默认音色";
+    });
+    $("#toScenes").addEventListener("click",()=>show("scenes"));
+    document.querySelectorAll(".back").forEach(b=>b.addEventListener("click",()=>show(b.dataset.back)));
+    document.querySelectorAll(".scene-card").forEach(card=>card.addEventListener("click",()=>{
+      document.querySelectorAll(".scene-card").forEach(c=>c.classList.remove("selected"));
+      card.classList.add("selected");selectedScene=card.dataset.scene;$("#sceneSummary").textContent=selectedScene;
+    }));
+    $("#toDialogue").addEventListener("click",()=>show("dialogue"));
+    $("#dialogue").addEventListener("input",e=>{$("#count").textContent=e.target.value.length;$("#generateBtn").disabled=!e.target.value.trim()});
+    $("#generateBtn").addEventListener("click",()=>{
+      show("generating");let p=0;
+      const timer=setInterval(()=>{
+        p=Math.min(100,p+10);$("#progressText").textContent=p+"%";$("#progressBar").style.width=p+"%";
+        $("#generationState").textContent=p<30?"正在校验素材并创建任务…":p<70?"正在调用模型生成画面…":p<100?"正在完成质量检查…":"短片生成完成";
+        if(p===100){clearInterval(timer);setTimeout(()=>{renderResult();show("result")},350)}
+      },150);
+    });
+    function renderResult(){
+      $("#resultScene").textContent=selectedScene.split(" · ")[0];
+      $("#resultDialogue").textContent=$("#dialogue").value.trim();
+    }
+    $("#playBtn").addEventListener("click",e=>{e.currentTarget.textContent=e.currentTarget.textContent==="▶"?"Ⅱ":"▶";toast("演示成片播放状态已切换")});
+    $("#restartBtn").addEventListener("click",()=>{show("upload");$("#intro").classList.add("hidden")});
+    $("#downloadBtn").addEventListener("click",()=>{
+      const safe=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+      const scene=safe(selectedScene),line=safe($("#dialogue").value.trim());
+      const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1440"><defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="#d7b98f"/><stop offset=".55" stop-color="#6f4b38"/><stop offset="1" stop-color="#201612"/></linearGradient></defs><rect width="1080" height="1440" fill="url(#g)"/><path d="M0 960V700h90V540h130v210h120V420h160v300h120V500h150v250h130V590h180v370z" fill="#241915" opacity=".82"/><text x="82" y="120" fill="#fff1dd" font-family="sans-serif" font-size="38" font-weight="700">咣当 · 深圳城市影像馆</text><text x="82" y="1090" fill="#fff" font-family="serif" font-size="66" font-weight="700">${scene}</text><text x="82" y="1185" fill="#f3dfc8" font-family="sans-serif" font-size="34">“${line}”</text><text x="82" y="1330" fill="#d9baa0" font-family="sans-serif" font-size="26">15 秒城市记忆短片 · 四步生成</text></svg>`;
+      const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"})),a=document.createElement("a");a.href=url;a.download="我的深圳城市记忆封面.svg";a.click();setTimeout(()=>URL.revokeObjectURL(url),500);toast("封面已开始下载");
+    });
+    $("#shareBtn").addEventListener("click",async()=>{
+      const data={title:"我的深圳城市记忆短片",text:$("#resultDialogue").textContent,url:location.href};
+      try{if(navigator.share){await navigator.share(data);return}await navigator.clipboard.writeText(location.href);toast("分享链接已复制")}catch(e){toast("可复制浏览器地址进行分享")}
+    });
+    function toast(text){const t=$("#toast");t.textContent=text;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+    chips.forEach(c=>c.addEventListener("click",()=>{$("#intro").classList.add("hidden");if(c.dataset.jump==="result")renderResult();show(c.dataset.jump)}));
+  </script>
+</body>
+</html>
