@@ -2959,6 +2959,555 @@
     }
 
     /* ===========================================
+       V2.2 CLARITY PASS
+       Larger type, simpler hierarchy and purpose-built layouts
+       for the confirmed eight-page leadership briefing.
+       =========================================== */
+    .dense-title {
+      font-size: 62px;
+      line-height: 1.12;
+    }
+
+    .section-note {
+      font-size: 21px;
+      line-height: 1.48;
+    }
+
+    /* 01 — one proposition plus three benefits only */
+    .slide[data-slide-title="目标与收益"] .content-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide[data-slide-title="目标与收益"] .executive-head {
+      display: block;
+      max-width: 1580px;
+    }
+
+    .slide[data-slide-title="目标与收益"] .dense-title {
+      max-width: 1660px;
+      font-size: 82px;
+      line-height: 1.12;
+    }
+
+    .slide[data-slide-title="目标与收益"] .value-triad {
+      margin-top: 72px;
+      border-top-width: 5px;
+    }
+
+    .slide[data-slide-title="目标与收益"] .value-card {
+      min-height: 330px;
+      padding: 34px 40px;
+    }
+
+    .slide[data-slide-title="目标与收益"] .value-card:first-child {
+      padding-left: 0;
+    }
+
+    .slide[data-slide-title="目标与收益"] .value-card h3 {
+      margin-top: 22px;
+      font-size: 38px;
+      line-height: 1.2;
+    }
+
+    .slide[data-slide-title="目标与收益"] .value-card p {
+      margin-top: 22px;
+      font-size: 24px;
+      line-height: 1.55;
+    }
+
+    /* 03 — front-end and back-end capability matrix */
+    .product-matrix {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      gap: 34px;
+      margin-top: 34px;
+    }
+
+    .matrix-panel {
+      min-width: 0;
+      border-top: 5px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matrix-panel.backend {
+      border-top-color: var(--cream);
+    }
+
+    .matrix-head {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 22px;
+      align-items: center;
+      min-height: 118px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matrix-head span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+    }
+
+    .matrix-head h2 {
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    .matrix-head p {
+      grid-column: 2;
+      margin-top: -14px;
+      color: var(--cream-muted);
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .matrix-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .matrix-row {
+      min-height: 148px;
+      padding: 20px 22px 16px 0;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matrix-row:nth-child(even) {
+      padding-left: 22px;
+      border-right: 0;
+    }
+
+    .matrix-row b {
+      display: block;
+      color: var(--fire);
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    .matrix-panel.backend .matrix-row b {
+      color: var(--cream);
+    }
+
+    .matrix-row p {
+      margin-top: 10px;
+      color: var(--cream-muted);
+      font-size: 18px;
+      line-height: 1.46;
+    }
+
+    .matrix-loop {
+      display: grid;
+      grid-template-columns: 1fr 60px 1.35fr 60px 1fr;
+      align-items: center;
+      margin-top: 24px;
+      padding: 18px 22px;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      background: rgba(232, 93, 38, 0.06);
+      font-size: 19px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .matrix-loop i {
+      color: var(--fire);
+      font-style: normal;
+      font-size: 28px;
+    }
+
+    /* 05 — data asset management architecture */
+    .asset-architecture {
+      display: grid;
+      grid-template-columns: 0.82fr 1.08fr 1.18fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-top: 36px;
+    }
+
+    .asset-layer {
+      position: relative;
+      min-width: 0;
+      min-height: 550px;
+      border-top: 5px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-layer::after {
+      position: absolute;
+      top: 252px;
+      right: -23px;
+      z-index: 3;
+      color: var(--fire);
+      content: "→";
+      font-family: var(--font-mono);
+      font-size: 30px;
+    }
+
+    .asset-layer:last-child::after {
+      display: none;
+    }
+
+    .asset-layer-head {
+      min-height: 96px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-layer-head span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .asset-layer-head h3 {
+      margin-top: 9px;
+      font-size: 28px;
+    }
+
+    .asset-node {
+      min-height: 92px;
+      padding: 14px 12px 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-node b {
+      display: block;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .asset-node p {
+      margin-top: 6px;
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .asset-layer.core {
+      padding: 0 18px;
+      color: var(--ink);
+      border-top-color: var(--cream);
+      border-bottom-color: transparent;
+      background: var(--cream);
+    }
+
+    .asset-layer.core .asset-layer-head {
+      border-bottom-color: rgba(17, 17, 17, 0.25);
+    }
+
+    .asset-layer.core .asset-layer-head span {
+      color: var(--ink-hint);
+    }
+
+    .asset-layer.core .asset-node {
+      border-bottom-color: rgba(17, 17, 17, 0.18);
+    }
+
+    .asset-layer.core .asset-node p {
+      color: var(--ink-muted);
+    }
+
+    .asset-security {
+      display: grid;
+      grid-template-columns: 220px repeat(5, 1fr);
+      align-items: center;
+      margin-top: 26px;
+      border-top: 3px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-security strong {
+      padding: 17px 18px 17px 0;
+      color: var(--fire);
+      font-size: 20px;
+    }
+
+    .asset-security span {
+      padding: 17px 14px;
+      border-left: 1px solid var(--border);
+      color: var(--cream-muted);
+      font-size: 16px;
+      text-align: center;
+    }
+
+    /* 07 — named team and auditable cost model */
+    .resource-layout-v3 {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 34px;
+      margin-top: 28px;
+    }
+
+    .people-grid-v3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 4px solid var(--fire);
+    }
+
+    .people-grid-v3 .person-card-v2 {
+      min-height: 150px;
+      padding: 16px 18px;
+    }
+
+    .people-grid-v3 .person-card-v2:nth-child(3n) {
+      border-right: 1px solid var(--border);
+    }
+
+    .people-grid-v3 .person-card-v2:nth-child(even) {
+      border-right: 0;
+    }
+
+    .people-grid-v3 .person-card-v2 h3 {
+      font-size: 22px;
+    }
+
+    .people-grid-v3 .person-card-v2 b {
+      display: block;
+      margin-top: 5px;
+      color: var(--cream);
+      font-size: 19px;
+    }
+
+    .people-grid-v3 .person-card-v2 p {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .cost-model {
+      border-top: 4px solid var(--fire);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cost-model-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      min-height: 94px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cost-model-head span {
+      color: var(--cream-muted);
+      font-size: 18px;
+    }
+
+    .cost-model-head strong {
+      color: var(--fire);
+      font-size: 54px;
+      line-height: 1;
+    }
+
+    .cost-table-head,
+    .cost-line {
+      display: grid;
+      grid-template-columns: 1.15fr 1.65fr 0.8fr;
+      align-items: center;
+    }
+
+    .cost-table-head {
+      min-height: 46px;
+      color: var(--cream-hint);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    .cost-line {
+      min-height: 86px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cost-line > * {
+      padding: 12px 14px;
+      border-left: 1px solid var(--border);
+    }
+
+    .cost-line > *:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .cost-line b {
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .cost-line span {
+      color: var(--cream-muted);
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .cost-line strong {
+      color: var(--fire);
+      font-size: 22px;
+      text-align: right;
+    }
+
+    .cost-source {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--fire);
+      color: var(--cream-muted);
+      background: rgba(232, 93, 38, 0.08);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    /* 08 — simple reporting method */
+    .simple-reporting {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 80px;
+      border-top: 5px solid var(--fire);
+    }
+
+    .simple-report-card {
+      min-height: 330px;
+      padding: 34px 30px 28px 0;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .simple-report-card:last-child {
+      border-right: 0;
+    }
+
+    .simple-report-card span {
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .simple-report-card h3 {
+      margin-top: 24px;
+      font-size: 34px;
+    }
+
+    .simple-report-card p {
+      margin-top: 20px;
+      color: var(--cream-muted);
+      font-size: 23px;
+      line-height: 1.55;
+    }
+
+    .reporting-principle {
+      margin-top: 42px;
+      padding: 24px 28px;
+      border-left: 5px solid var(--fire);
+      color: var(--cream);
+      background: rgba(232, 93, 38, 0.08);
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    /* Readability pass for retained product-design pages */
+    .flow-phase h3,
+    .platform-column .panel-title {
+      font-size: 28px;
+    }
+
+    .flow-phase p,
+    .boundary-col p,
+    .delivery-item-v2 span,
+    .planning-item b,
+    .verify-item b {
+      font-size: 17px;
+    }
+
+    .prompt-unit-v2 b {
+      font-size: 18px;
+    }
+
+    .prompt-unit-v2 p {
+      font-size: 15px;
+    }
+
+    .layer-card-v2 {
+      min-height: 500px;
+      padding-top: 24px;
+    }
+
+    .layer-card-v2 h3 {
+      font-size: 30px;
+    }
+
+    .layer-owner-v2 {
+      margin-top: 12px;
+      font-size: 17px;
+    }
+
+    .layer-card-v2 li {
+      font-size: 18px;
+      line-height: 1.46;
+    }
+
+    .layer-output {
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .flow-phase h3 {
+      font-size: 31px;
+    }
+
+    .flow-phase p,
+    .boundary-col p,
+    .delivery-item-v2 span {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .boundary-col strong,
+    .delivery-item-v2 b {
+      font-size: 23px;
+    }
+
+    .release-line-v2 {
+      font-size: 18px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .planning-item,
+    .slide[data-slide-title="策划生产平台"] .verify-item {
+      min-height: 78px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .planning-item b,
+    .slide[data-slide-title="策划生产平台"] .verify-item b {
+      font-size: 19px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .prompt-unit-v2 {
+      min-height: 165px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .prompt-unit-v2 b {
+      font-size: 20px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .prompt-unit-v2 p {
+      font-size: 17px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .version-strip-v2 span {
+      font-size: 13px;
+    }
+
+    .slide[data-slide-title="策划生产平台"] .version-rule-v2 {
+      font-size: 15px;
+    }
+
+    /* ===========================================
        OUTSIDE-STAGE NAVIGATION
        =========================================== */
     .nav-dots {
@@ -3103,7 +3652,7 @@
     <main class="deck-stage" id="deckStage" aria-label="AI影像馆集团AIGC项目汇报">
 
       <!-- 01 / EXECUTIVE OVERVIEW -->
-      <section class="slide dark active" data-slide-title="目标与启动">
+      <section class="slide dark active" data-slide-title="目标与收益">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">01</div>
           <div class="scan-line"></div>
@@ -3119,7 +3668,6 @@
                 <div class="kicker reveal-left" style="--delay:40ms" data-editable>内部启动方案 / 2026.07</div>
                 <h1 class="dense-title reveal" style="--delay:90ms" data-editable>以真实 B/G 端项目启动 AI影像馆，验证互动生成、传播回流、数据沉淀与媒资复用闭环</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>首轮不一次性建设完整平台，先用一个可运行、可生成、可交付、可复盘的 Demo 验证路径，再依据真实开销和项目反馈决定完善范围。</p>
             </div>
 
             <div class="value-triad">
@@ -3140,35 +3688,8 @@
               </article>
             </div>
 
-            <div class="executive-bottom">
-              <article class="launch-panel reveal" style="--delay:290ms">
-                <div class="panel-title"><span>启动方式</span><strong data-editable>真实 B/G 端项目定制 Demo</strong></div>
-                <div class="launch-flow">
-                  <div class="launch-node"><span>01</span><b data-editable>需求与项目简报</b></div>
-                  <div class="launch-node hot"><span>02</span><b data-editable>Gate A<br>确认脚本与分镜</b></div>
-                  <div class="launch-node"><span>03</span><b data-editable>资产准备与真实生成</b></div>
-                  <div class="launch-node hot"><span>04</span><b data-editable>Gate B<br>确认个性化样片</b></div>
-                  <div class="launch-node"><span>05</span><b data-editable>定向开放与项目复盘</b></div>
-                </div>
-                <div class="launch-foot">
-                  <p data-editable><b>交付：</b>经确认的内容方案、可运行 H5、最小后台、一条真实个性化样片、发行与复盘材料。</p>
-                  <p data-editable><b>入口：</b>第一现场 App 作为长期入口；咣当小程序及专题页、二维码、线下大屏按项目配置。</p>
-                </div>
-              </article>
-
-              <aside class="ask-panel reveal" style="--delay:330ms">
-                <div class="panel-title"><span>本次启动申请</span><strong>GO / NO-GO</strong></div>
-                <div class="ask-metrics">
-                  <div class="ask-metric"><strong data-editable>6</strong><span data-editable>个核心岗位</span></div>
-                  <div class="ask-metric"><strong data-editable>2周</strong><span data-editable>目标周期</span></div>
-                  <div class="ask-metric"><strong data-editable>¥13,500</strong><span data-editable>Demo直接费用</span></div>
-                  <div class="ask-metric"><strong data-editable>1</strong><span data-editable>个真实项目</span></div>
-                </div>
-                <div class="ask-line" data-editable>请确认：项目、人员、预算，以及媒资、研发、数据和发行资源协同。</div>
-              </aside>
-            </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>01 / TARGET &amp; START</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>01 / TARGET &amp; VALUE</span></div>
         </div>
       </section>
 
@@ -3207,7 +3728,7 @@
               <article class="layer-card-v2 reveal" style="--delay:210ms">
                 <span class="label-code">LAYER / 02</span>
                 <h3 data-editable>内容策划与生产</h3>
-                <div class="layer-owner-v2" data-editable>负责人：林宏炜｜协助：真实需求方</div>
+                <div class="layer-owner-v2" data-editable>负责人：林宏炜｜协助：杨芷茵、真实需求方</div>
                 <ul>
                   <li data-editable>将客户目标转化为主题、脚本和分镜</li>
                   <li data-editable>组织资产、Prompt、模型与样片验证</li>
@@ -3244,72 +3765,69 @@
         </div>
       </section>
 
-      <!-- 03 / STAGED PRODUCT -->
-      <section class="slide dark" data-slide-title="产品阶段">
+      <!-- 03 / DEMO PRODUCT MATRIX -->
+      <section class="slide dark" data-slide-title="Demo产品设计">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">03</div>
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>DEMO VALIDATION · PLATFORM EVOLUTION · DEMO VALIDATION · PLATFORM EVOLUTION · </span></div>
+          <div class="edge-ticker"><span>USER EXPERIENCE · OPERATIONS PLATFORM · DATA ASSETS · USER EXPERIENCE · OPERATIONS PLATFORM · </span></div>
         </div>
         <div class="slide-inner">
-          <div class="chrome"><span><span class="active-label">03</span> / PRODUCT STAGES</span><span>INTERNAL / 03—08</span></div>
+          <div class="chrome"><span><span class="active-label">03</span> / DEMO PRODUCT DESIGN</span><span>INTERNAL / 03—08</span></div>
           <div class="content-area">
             <div class="stage-head">
               <div>
-                <div class="kicker reveal-left" style="--delay:40ms" data-editable>产品形态</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>Demo 以定制 H5 验证业务，完整形态逐步升级为持续运营平台</h1>
+                <div class="kicker reveal-left" style="--delay:40ms" data-editable>Demo 产品形态</div>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>一个 Demo，同时验证前端互动体验与后端运营能力</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>阶段之间不是两套割裂产品：Demo 沉淀的项目配置、Prompt、资产关系、任务和成本数据，将成为平台化建设的真实依据。</p>
+              <p class="section-note reveal" style="--delay:140ms" data-editable>前端负责让用户顺畅完成创作与分享；后端负责项目配置、内容生产、生成调度、资产沉淀和数据复盘。</p>
             </div>
 
-            <div class="stage-compare">
-              <article class="stage-panel reveal" style="--delay:180ms">
-                <div class="stage-panel-head">
-                  <span>STAGE / 01</span>
-                  <h2 data-editable>Demo：先跑通一个项目</h2>
-                  <b data-editable>2周目标</b>
+            <div class="product-matrix">
+              <article class="matrix-panel reveal" style="--delay:180ms">
+                <div class="matrix-head">
+                  <span>FRONT END</span>
+                  <h2 data-editable>Demo 前端｜用户可见</h2>
+                  <p data-editable>项目定制 H5，低自由度、快生成、可分享</p>
                 </div>
-                <div class="stage-rows">
-                  <div class="stage-row" data-editable><b>服务对象</b><span>一个真实 B/G 端项目</span></div>
-                  <div class="stage-row" data-editable><b>用户载体</b><span>项目定制 H5 链接</span></div>
-                  <div class="stage-row" data-editable><b>内容风格</b><span>根据项目需求选定一种，不并行跑三种</span></div>
-                  <div class="stage-row" data-editable><b>生成模型</b><span>云端 Seedance 真实链路</span></div>
-                  <div class="stage-row" data-editable><b>用户输入</b><span>单主角照片、场景、台词与可选声音</span></div>
-                  <div class="stage-row" data-editable><b>管理能力</b><span>最小后台、任务记录与成品留存</span></div>
-                  <div class="stage-row" data-editable><b>交付结果</b><span>视频、分享海报与回流二维码</span></div>
-                  <div class="stage-row" data-editable><b>验证内容</b><span>流程、稳定性、实际成本与项目反馈</span></div>
+                <div class="matrix-table">
+                  <div class="matrix-row" data-editable><b>项目入口</b><p>专题页、App、二维码或线下大屏进入</p></div>
+                  <div class="matrix-row" data-editable><b>样片引导</b><p>先看项目定制样片，再发起个人创作</p></div>
+                  <div class="matrix-row" data-editable><b>授权与素材</b><p>确认授权，上传照片、台词与可选声音</p></div>
+                  <div class="matrix-row" data-editable><b>个性化选择</b><p>在项目预设场景与内容边界内创作</p></div>
+                  <div class="matrix-row" data-editable><b>生成与结果</b><p>查看进度、成片、失败原因与重试状态</p></div>
+                  <div class="matrix-row" data-editable><b>分享与回流</b><p>视频、海报、二维码带回项目入口</p></div>
                 </div>
               </article>
 
-              <article class="stage-panel future reveal" style="--delay:230ms">
-                <div class="stage-panel-head">
-                  <span>STAGE / 02</span>
-                  <h2 data-editable>完整形态：持续运营平台</h2>
-                  <b data-editable>按实评估</b>
+              <article class="matrix-panel backend reveal" style="--delay:230ms">
+                <div class="matrix-head">
+                  <span>BACK END</span>
+                  <h2 data-editable>Demo 后端｜运营可用</h2>
+                  <p data-editable>重点验证管理平台、数据资产库和数据看板</p>
                 </div>
-                <div class="stage-rows">
-                  <div class="stage-row" data-editable><b>前端平台</b><span>持续发布不同主题的视频模板</span></div>
-                  <div class="stage-row" data-editable><b>项目配置</b><span>多项目、多活动入口与独立数据范围</span></div>
-                  <div class="stage-row" data-editable><b>策划生产</b><span>脚本、分镜、Prompt、样片和版本统一管理</span></div>
-                  <div class="stage-row" data-editable><b>媒资协同</b><span>合规清洗后的集团媒资可检索、可绑定</span></div>
-                  <div class="stage-row" data-editable><b>数据能力</b><span>资产库、项目库、数据看板与复盘</span></div>
-                  <div class="stage-row" data-editable><b>模型能力</b><span>模型适配层与开源模型本地部署评估</span></div>
-                  <div class="stage-row" data-editable><b>平台治理</b><span>帐号、角色、权限、审计和数据生命周期</span></div>
-                  <div class="stage-row" data-editable><b>经营能力</b><span>场景方案包复用与 B/G 端定制转化</span></div>
+                <div class="matrix-table">
+                  <div class="matrix-row" data-editable><b>管理平台</b><p>项目、入口、模板、人员和发布配置</p></div>
+                  <div class="matrix-row" data-editable><b>数据资产库</b><p>媒资、用户素材、Prompt、成片及授权关系</p></div>
+                  <div class="matrix-row" data-editable><b>生成任务中心</b><p>排队、调用、重试、异常和成本记录</p></div>
+                  <div class="matrix-row" data-editable><b>数据看板</b><p>参与、生成、成功率、分享回流与单次成本</p></div>
+                  <div class="matrix-row" data-editable><b>内容与版本</b><p>脚本、分镜、Prompt、模型及结果可追溯</p></div>
+                  <div class="matrix-row" data-editable><b>权限与审计</b><p>角色权限、授权期限、操作日志与删除记录</p></div>
                 </div>
               </article>
             </div>
 
-            <div class="stage-bridge reveal" style="--delay:300ms">
-              <span data-editable>Demo 真实数据与可复用方案包</span>
-              <strong>→</strong>
-              <span data-editable>评估产品完善范围、周期与预算</span>
-              <p data-editable>两周不包含：完整平台、全量媒资清洗、本地模型部署、完整 BI、帐号权限与独立审核系统。</p>
+            <div class="matrix-loop reveal" style="--delay:300ms">
+              <span data-editable>前端完成互动生成与分享</span>
+              <i>→</i>
+              <span data-editable>后端沉淀资产、成本、效果与传播数据</span>
+              <i>→</i>
+              <span data-editable>复盘优化并复用于下一项目</span>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>03 / DEMO → PLATFORM</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>03 / FRONT END · BACK END</span></div>
         </div>
       </section>
 
@@ -3388,24 +3906,87 @@
         </div>
       </section>
 
-      <!-- 05 / PLANNING PLATFORM -->
-      <section class="slide dark" data-slide-title="策划生产平台">
+      <!-- 05 / DATA ASSET ARCHITECTURE -->
+      <section class="slide dark" data-slide-title="数据资产架构">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">05</div>
+          <div class="scan-line"></div>
+          <div class="motion-frame"></div>
+          <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
+          <div class="edge-ticker"><span>SOURCE · GOVERNANCE · ASSET LIBRARY · SERVICE · SECURITY · SOURCE · GOVERNANCE · </span></div>
+        </div>
+        <div class="slide-inner">
+          <div class="chrome"><span><span class="active-label">05</span> / DATA ASSET ARCHITECTURE</span><span>INTERNAL / 05—08</span></div>
+          <div class="content-area">
+            <div class="stage-head">
+              <div>
+                <div class="kicker reveal-left" style="--delay:40ms" data-editable>数据资产管理架构</div>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>从四类数据进入，到治理、沉淀、服务和复用</h1>
+              </div>
+              <p class="section-note reveal" style="--delay:140ms" data-editable>不是把文件简单放进网盘，而是把权属、授权、内容、版本、生成任务和效果数据建立可追溯关系。</p>
+            </div>
+
+            <div class="asset-architecture">
+              <article class="asset-layer reveal" style="--delay:170ms">
+                <div class="asset-layer-head"><span>LAYER / 01</span><h3 data-editable>数据来源层</h3></div>
+                <div class="asset-node" data-editable><b>集团历史媒资</b><p>影像、人物、场景、事件</p></div>
+                <div class="asset-node" data-editable><b>用户授权素材</b><p>照片、声音、视频、授权记录</p></div>
+                <div class="asset-node" data-editable><b>B/G 端项目资产</b><p>需求、脚本、分镜、样片、成片</p></div>
+                <div class="asset-node" data-editable><b>运营与模型数据</b><p>任务、传播、效果、成本、异常</p></div>
+              </article>
+
+              <article class="asset-layer reveal" style="--delay:210ms">
+                <div class="asset-layer-head"><span>LAYER / 02</span><h3 data-editable>治理加工层</h3></div>
+                <div class="asset-node" data-editable><b>确权与授权</b><p>来源、用途、范围、期限、训练授权</p></div>
+                <div class="asset-node" data-editable><b>分类与分级</b><p>公开、内部、敏感、受限资产</p></div>
+                <div class="asset-node" data-editable><b>清洗与结构化</b><p>去重、脱敏、标签、人物事件关联</p></div>
+                <div class="asset-node" data-editable><b>版本与索引</b><p>统一 ID、版本关系、检索字段</p></div>
+              </article>
+
+              <article class="asset-layer core reveal" style="--delay:250ms">
+                <div class="asset-layer-head"><span>LAYER / 03</span><h3 data-editable>数据资产库</h3></div>
+                <div class="asset-node" data-editable><b>媒资素材库</b><p>原始文件、处理文件、标签与权属</p></div>
+                <div class="asset-node" data-editable><b>项目内容资产库</b><p>需求、脚本、分镜、Prompt、确认记录</p></div>
+                <div class="asset-node" data-editable><b>生成结果库</b><p>任务版本、模型参数、样片、成片</p></div>
+                <div class="asset-node" data-editable><b>运营效果数据仓</b><p>参与、成功率、分享、回流、成本</p></div>
+              </article>
+
+              <article class="asset-layer reveal" style="--delay:290ms">
+                <div class="asset-layer-head"><span>LAYER / 04</span><h3 data-editable>产品服务层</h3></div>
+                <div class="asset-node" data-editable><b>管理平台</b><p>项目、资产、任务、权限统一管理</p></div>
+                <div class="asset-node" data-editable><b>检索与复用</b><p>媒资搜索、方案包复用、资产绑定</p></div>
+                <div class="asset-node" data-editable><b>数据看板</b><p>传播、生成质量、成本和客户复盘</p></div>
+                <div class="asset-node" data-editable><b>模型与产品优化</b><p>模型选择、流程优化、报价依据</p></div>
+              </article>
+            </div>
+
+            <div class="asset-security reveal" style="--delay:340ms">
+              <strong data-editable>安全与生命周期基座</strong>
+              <span data-editable>分区隔离</span><span data-editable>最小权限</span><span data-editable>操作审计</span><span data-editable>限期留存与删除</span><span data-editable>训练独立授权</span>
+            </div>
+          </div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>05 / DATA ASSET FLOW</span></div>
+        </div>
+      </section>
+
+      <!-- 06 / PLANNING PLATFORM -->
+      <section class="slide dark" data-slide-title="策划生产平台">
+        <div class="bg-motion" aria-hidden="true">
+          <div class="bg-index">06</div>
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
           <div class="edge-ticker"><span>SCRIPT · STORYBOARD · PROMPT · SAMPLE · VERSION · SCRIPT · STORYBOARD · PROMPT · SAMPLE · VERSION · </span></div>
         </div>
         <div class="slide-inner">
-          <div class="chrome"><span><span class="active-label">05</span> / INTERNAL PRODUCTION PLATFORM</span><span>INTERNAL / 05—08</span></div>
+          <div class="chrome"><span><span class="active-label">06</span> / INTERNAL PRODUCTION PLATFORM</span><span>INTERNAL / 06—08</span></div>
           <div class="content-area">
             <div class="stage-head">
               <div>
-                <div class="kicker reveal-left" style="--delay:40ms" data-editable>内部策划与生产能力</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>统一管理需求、脚本、Prompt、故事板、样片和版本</h1>
+                <div class="kicker reveal-left" style="--delay:40ms" data-editable>内部策划与生产平台</div>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>把一次性创作方法，沉淀为可复用的生产系统</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>完整形态不是面向专业创作者开放无限编辑，而是把已验证的策划生产方法沉淀为结构化工具，提高项目生成效率、稳定性与复用率。</p>
+              <p class="section-note reveal" style="--delay:140ms" data-editable>统一管理需求、脚本、分镜、Prompt、资产绑定、样片确认和版本，减少重复劳动与失控修改。</p>
             </div>
 
             <div class="platform-layout">
@@ -3422,7 +4003,7 @@
               </article>
 
               <article class="platform-column reveal" style="--delay:220ms">
-                <div class="panel-title"><span>完整 Prompt 结构</span><strong>9 MODULES</strong></div>
+                <div class="panel-title"><span>Prompt 结构</span><strong>9 MODULES</strong></div>
                 <div class="prompt-grid-v2">
                   <div class="prompt-unit-v2" data-editable><span>01</span><b>输出规格</b><p>模型、画质、时长、画幅</p></div>
                   <div class="prompt-unit-v2" data-editable><span>02</span><b>资产绑定</b><p>人物、场景、道具、声音引用</p></div>
@@ -3431,7 +4012,7 @@
                   <div class="prompt-unit-v2" data-editable><span>05</span><b>分镜节奏</b><p>每镜时长、事件与衔接关系</p></div>
                   <div class="prompt-unit-v2" data-editable><span>06</span><b>角色表演</b><p>动作、表情、走位与互动</p></div>
                   <div class="prompt-unit-v2" data-editable><span>07</span><b>镜头画面</b><p>景别、机位、运动、光影构图</p></div>
-                  <div class="prompt-unit-v2" data-editable><span>08</span><b>台词声音</b><p>用户台词、音色、环境声与节奏</p></div>
+                  <div class="prompt-unit-v2" data-editable><span>08</span><b>台词声音</b><p>台词、音色、环境声与节奏</p></div>
                   <div class="prompt-unit-v2" data-editable><span>09</span><b>约束质检</b><p>角色一致性、禁用项与质量要求</p></div>
                 </div>
               </article>
@@ -3452,77 +4033,10 @@
               <div>
                 <span data-editable>项目版本</span><span data-editable>脚本版本</span><span data-editable>分镜版本</span><span data-editable>Prompt版本</span><span data-editable>模型版本</span><span data-editable>资产版本</span><span data-editable>结果版本</span>
               </div>
-              <p class="version-rule-v2" data-editable>具备权限的人员只能新建版本；生成任务冻结所用版本并保留追溯关系，不覆盖历史记录。</p>
+              <p class="version-rule-v2" data-editable>只新建版本，不覆盖历史；每个生成任务冻结所用版本，客户确认与最终结果可追溯。</p>
             </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>05 / PROMPT &amp; VERSION</span></div>
-        </div>
-      </section>
-
-      <!-- 06 / DATA GOVERNANCE -->
-      <section class="slide dark" data-slide-title="数据治理">
-        <div class="bg-motion" aria-hidden="true">
-          <div class="bg-index">06</div>
-          <div class="scan-line"></div>
-          <div class="motion-frame"></div>
-          <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>OWNERSHIP · CONSENT · CLASSIFICATION · ACCESS · AUDIT · VALUE · OWNERSHIP · CONSENT · </span></div>
-        </div>
-        <div class="slide-inner">
-          <div class="chrome"><span><span class="active-label">06</span> / DATA GOVERNANCE</span><span>INTERNAL / 06—08</span></div>
-          <div class="content-area">
-            <div class="stage-head">
-              <div>
-                <div class="kicker reveal-left" style="--delay:40ms" data-editable>数据资产与安全治理</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>数据按来源、权限和生命周期治理，再形成产品与项目价值</h1>
-              </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>媒资、用户上传素材和项目资产不能默认混用。先明确权属、授权、用途、保存期限和访问权限，再进入生成、复用或模型优化流程。</p>
-            </div>
-
-            <div class="data-sources-v2">
-              <article class="data-source-v2 reveal" style="--delay:170ms"><span>01</span><h3 data-editable>集团 40+ 年媒资</h3><p data-editable>历史影像、人物、场景和事件资料</p></article>
-              <article class="data-source-v2 reveal" style="--delay:200ms"><span>02</span><h3 data-editable>用户授权资产</h3><p data-editable>照片、声音、视频与生成授权记录</p></article>
-              <article class="data-source-v2 reveal" style="--delay:230ms"><span>03</span><h3 data-editable>B/G 端项目资产</h3><p data-editable>需求、脚本、分镜、Prompt、样片与成片</p></article>
-              <article class="data-source-v2 reveal" style="--delay:260ms"><span>04</span><h3 data-editable>运营与模型数据</h3><p data-editable>任务、传播、偏好、效果、成本与异常</p></article>
-            </div>
-
-            <div class="lifecycle-v2 reveal" style="--delay:290ms">
-              <div class="life-node-v2" data-editable>权属确认</div>
-              <div class="life-node-v2" data-editable>授权同意</div>
-              <div class="life-node-v2" data-editable>分类分级</div>
-              <div class="life-node-v2" data-editable>清洗脱敏</div>
-              <div class="life-node-v2" data-editable>分区存储</div>
-              <div class="life-node-v2" data-editable>授权访问</div>
-              <div class="life-node-v2" data-editable>生成与优化</div>
-              <div class="life-node-v2" data-editable>留存与清理</div>
-              <div class="life-node-v2" data-editable>删除与审计</div>
-            </div>
-
-            <div class="data-principles-v2">
-              <article class="principle-box-v2 reveal" style="--delay:330ms">
-                <div class="panel-title"><span>治理底线</span><strong>6 RULES</strong></div>
-                <div class="principle-list-v2">
-                  <p data-editable>媒资经确权、授权和清洗后使用</p>
-                  <p data-editable>用户素材需清晰告知并取得同意</p>
-                  <p data-editable>模型训练与普通生成分别授权</p>
-                  <p data-editable>原始、处理、结果、分享数据分区</p>
-                  <p data-editable>最小权限、短期链接、操作可审计</p>
-                  <p data-editable>保存周期可配置，支持删除与追溯</p>
-                </div>
-              </article>
-              <article class="value-box-v2 reveal" style="--delay:370ms">
-                <div class="panel-title"><span>数据形成的价值</span><strong>5 LEVELS</strong></div>
-                <div class="value-layers-v2">
-                  <div class="value-layer-v2" data-editable><span>运营</span><b>判断入口、传播节点与用户偏好</b></div>
-                  <div class="value-layer-v2" data-editable><span>产品</span><b>优化流程、稳定性、模型选择与成本</b></div>
-                  <div class="value-layer-v2" data-editable><span>内容</span><b>复用高表现脚本、分镜与 Prompt 结构</b></div>
-                  <div class="value-layer-v2" data-editable><span>业务</span><b>支撑报价、客户复购与场景方案包</b></div>
-                  <div class="value-layer-v2" data-editable><span>战略</span><b>让集团媒资形成可持续的 AI 时代价值</b></div>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>06 / DATA LIFECYCLE</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>06 / PROMPT &amp; VERSION</span></div>
         </div>
       </section>
 
@@ -3536,118 +4050,94 @@
           <div class="edge-ticker"><span>6 ROLES · 2 WEEKS · ¥13,500 · 1 REAL PROJECT · 6 ROLES · 2 WEEKS · ¥13,500 · </span></div>
         </div>
         <div class="slide-inner">
-          <div class="chrome"><span><span class="active-label">07</span> / RESOURCES &amp; TIMELINE</span><span>INTERNAL / 07—08</span></div>
+          <div class="chrome"><span><span class="active-label">07</span> / PEOPLE &amp; COST MODEL</span><span>INTERNAL / 07—08</span></div>
           <div class="content-area">
             <div class="stage-head">
               <div>
                 <div class="kicker reveal-left" style="--delay:40ms" data-editable>所需资源</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>六个核心岗位、13,500 元直接费用，资源到位后以两周为目标完成 Demo</h1>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>六个核心岗位协同，以 13,500 元直接费用启动真实 Demo</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>本页费用为 Demo 阶段直接支出，不含人力折算。产品完善阶段的周期、算力、部署与费用，在 Demo 完成后依据真实消耗和项目数据评估。</p>
+              <p class="section-note reveal" style="--delay:140ms" data-editable>预算不含人力折算；模型调用按 15 秒成片测算，数量覆盖脚本试验、候选生成、失败重试和客户修改。</p>
             </div>
 
-            <div class="resource-layout-v2">
+            <div class="resource-layout-v3">
               <article class="reveal" style="--delay:180ms">
                 <div class="panel-title"><span>核心岗位</span><strong>6 POSITIONS</strong></div>
-                <div class="people-grid-v2">
+                <div class="people-grid-v3">
                   <div class="person-card-v2" data-editable><span>01</span><h3>项目负责人</h3><b>黄海睿</b><p>统筹目标、资源、节奏、风险与决策</p></div>
                   <div class="person-card-v2" data-editable><span>02</span><h3>需求与商务</h3><b>陈莎莎</b><p>项目获取、客户沟通与商业边界</p></div>
-                  <div class="person-card-v2" data-editable><span>03</span><h3>内容策划生产</h3><b>林宏炜</b><p>脚本、分镜、Prompt、样片与交付</p></div>
-                  <div class="person-card-v2" data-editable><span>04</span><h3>产品与研发</h3><b>周俊杰</b><p>H5、后台、模型链路与数据能力</p></div>
+                  <div class="person-card-v2" data-editable><span>03</span><h3>内容策划生产</h3><b>林宏炜、杨芷茵</b><p>脚本、分镜、Prompt、样片与内容交付</p></div>
+                  <div class="person-card-v2" data-editable><span>04</span><h3>产品与研发</h3><b>周俊杰、林宏炜</b><p>产品设计、H5、后台、模型链路与数据能力</p></div>
                   <div class="person-card-v2" data-editable><span>05</span><h3>媒资数据与模型</h3><b>研发部人员</b><p>清洗训练、模型适配与部署支持</p></div>
-                  <div class="person-card-v2" data-editable><span>06</span><h3>发行与交付</h3><b>杨芷茵</b><p>陈莎莎负责层级；执行发行、现场和复盘</p></div>
+                  <div class="person-card-v2" data-editable><span>06</span><h3>发行与交付</h3><b>杨芷茵、陈莎莎</b><p>发行配置、客户交付、现场支持与复盘</p></div>
                 </div>
               </article>
 
-              <aside class="budget-box-v2 reveal" style="--delay:230ms">
-                <div class="budget-total-v2"><span data-editable>Demo 直接费用</span><strong data-editable>¥13,500</strong></div>
-                <div class="budget-row-v2" data-editable><span><b>01</b> 云端模型生成测试</span><strong>¥8,700</strong></div>
-                <div class="budget-row-v2" data-editable><span><b>02</b> AI 开发工具账号</span><strong>¥2,800</strong></div>
-                <div class="budget-row-v2" data-editable><span><b>03</b> 部署与数据安全冗余</span><strong>¥2,000</strong></div>
-                <div class="budget-foot-v2">
-                  <p data-editable>模型预算：720p 测试约 4,200 元；1080p 测试、预演与修改约 4,500 元。</p>
-                  <p data-editable>0.7 元/秒与 1.5 元/秒为项目测算口径；最终以内部门 API 实际账单为准。</p>
+              <aside class="cost-model reveal" style="--delay:230ms">
+                <div class="cost-model-head"><span data-editable>Demo 直接费用合计</span><strong data-editable>¥13,500</strong></div>
+                <div class="cost-table-head"><span>费用项目</span><span>测算公式与用途</span><span>预算</span></div>
+                <div class="cost-line" data-editable>
+                  <b>720p 模型测试</b><span>15 秒 × 400 次 × 0.7 元/秒；用于脚本、风格、镜头与失败重试</span><strong>¥4,200</strong>
+                </div>
+                <div class="cost-line" data-editable>
+                  <b>1080p 预演与修改</b><span>15 秒 × 200 次 × 1.5 元/秒；用于候选成片、客户预演与修改</span><strong>¥4,500</strong>
+                </div>
+                <div class="cost-line" data-editable>
+                  <b>AI 开发工具账号</b><span>4 个账号 × 350 元/月 × 2 个月；覆盖产品、研发和内容协作</span><strong>¥2,800</strong>
+                </div>
+                <div class="cost-line" data-editable>
+                  <b>测试部署环境</b><span>1 套云端测试环境 × 300 元/月 × 2 个月</span><strong>¥600</strong>
+                </div>
+                <div class="cost-line" data-editable>
+                  <b>存储与安全冗余</b><span>对象存储、CDN、日志、备份与突发用量预留</span><strong>¥1,400</strong>
+                </div>
+                <div class="cost-source" data-editable>
+                  <b>数据来源：</b>模型单价采用当前项目内部 API 试算口径；账号与云资源采用现行内部采购估算。数量按一个真实项目的 Demo 验证量预留，最终以实际 API 账单和采购价格结算。
                 </div>
               </aside>
             </div>
-
-            <div class="timeline-v2 reveal" style="--delay:290ms">
-              <article class="time-phase-v2" data-editable><span>PHASE / 01</span><h3>项目与接口确认</h3><p>确认客户目标、脚本方向、模型接口、数据字段与部署方案。</p></article>
-              <article class="time-phase-v2" data-editable><span>PHASE / 02</span><h3>产品与内容并行</h3><p>开发 H5、后台和任务链路；同步完成脚本、分镜、资产与 Prompt。</p></article>
-              <article class="time-phase-v2" data-editable><span>PHASE / 03</span><h3>样片与上线准备</h3><p>真实生成、客户确认、联调测试、定向发行配置与交付准备。</p></article>
-              <div class="time-baseline-v2" data-editable><b>T0 启动条件：</b>真实项目、六个岗位、预算、模型接口、媒资/数据/发行资源与服务器全部到位；范围变更将同步调整排期。</div>
-            </div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>07 / PEOPLE · COST · TIME</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>07 / PEOPLE · COST</span></div>
         </div>
       </section>
 
-      <!-- 08 / GOVERNANCE -->
-      <section class="slide dark" data-slide-title="汇报机制与决策">
+      <!-- 08 / SIMPLE REPORTING -->
+      <section class="slide dark" data-slide-title="汇报方式">
         <div class="bg-motion" aria-hidden="true">
           <div class="bg-index">08</div>
           <div class="scan-line"></div>
           <div class="motion-frame"></div>
           <div class="signal-bars"><i></i><i></i><i></i><i></i></div>
-          <div class="edge-ticker"><span>DAILY · WEEKLY · GATE REVIEW · VERSION TRACE · DECISION · DAILY · WEEKLY · GATE REVIEW · </span></div>
+          <div class="edge-ticker"><span>PROGRESS · RESULTS · RISKS · DECISIONS · PROGRESS · RESULTS · RISKS · DECISIONS · </span></div>
         </div>
         <div class="slide-inner">
-          <div class="chrome"><span><span class="active-label">08</span> / REPORTING &amp; DECISION</span><span>INTERNAL / 08—08</span></div>
+          <div class="chrome"><span><span class="active-label">08</span> / REPORTING METHOD</span><span>INTERNAL / 08—08</span></div>
           <div class="content-area">
             <div class="stage-head">
               <div>
-                <div class="kicker reveal-left" style="--delay:40ms" data-editable>项目汇报机制</div>
-                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>固定周报、里程碑评审和版本管理，保障项目持续可控</h1>
+                <div class="kicker reveal-left" style="--delay:40ms" data-editable>项目汇报方式</div>
+                <h1 class="dense-title reveal" style="--delay:90ms" data-editable>用简短周报和关键节点汇报，让进度、结果与问题一目了然</h1>
               </div>
-              <p class="section-note reveal" style="--delay:140ms" data-editable>由项目负责人统一形成事实口径；商务沟通、范围变更、客户确认、开发版本、预算消耗和发行结果均可追溯。</p>
             </div>
 
-            <div class="reporting-cadence-v2">
-              <article class="cadence-card-v2 reveal" style="--delay:170ms">
-                <span>DAILY</span><h3 data-editable>每日异步更新</h3>
-                <p data-editable>各负责人更新任务状态、当日完成项、次日计划与阻塞问题；不额外召开无必要例会。</p>
+            <div class="simple-reporting">
+              <article class="simple-report-card reveal" style="--delay:170ms">
+                <span>WEEKLY / 01</span><h3 data-editable>每周一次简报</h3>
+                <p data-editable>说明本周完成、下周计划、预算消耗和需要协调的问题。</p>
               </article>
-              <article class="cadence-card-v2 reveal" style="--delay:210ms">
-                <span>WEEKLY</span><h3 data-editable>每周一次正式汇报</h3>
-                <p data-editable>黄海睿汇总红黄绿状态、进度、预算、风险、客户反馈、版本变化和待决策事项。</p>
+              <article class="simple-report-card reveal" style="--delay:210ms">
+                <span>MILESTONE / 02</span><h3 data-editable>关键节点看成果</h3>
+                <p data-editable>脚本确认、样片确认、Demo 上线和项目复盘时，直接展示实物与数据。</p>
               </article>
-              <article class="cadence-card-v2 reveal" style="--delay:250ms">
-                <span>NOW</span><h3 data-editable>重要事项当天升级</h3>
-                <p data-editable>范围、安全、成本、排期、接口或客户确认发生重大变化，当天同步并明确责任人和处理时限。</p>
+              <article class="simple-report-card reveal" style="--delay:250ms">
+                <span>EXCEPTION / 03</span><h3 data-editable>重大问题及时升级</h3>
+                <p data-editable>范围、成本、排期或安全出现明显变化时，当天提出问题和处理建议。</p>
               </article>
             </div>
 
-            <div class="gates-v2 reveal" style="--delay:290ms">
-              <div class="gate-card-v2" data-editable><span>G0</span><b>启动评审</b><p>范围、资源、接口、预算</p></div>
-              <div class="gate-card-v2 hot" data-editable><span>A</span><b>客户确认</b><p>脚本与分镜</p></div>
-              <div class="gate-card-v2" data-editable><span>G1</span><b>技术评审</b><p>链路、数据与部署</p></div>
-              <div class="gate-card-v2 hot" data-editable><span>B</span><b>客户确认</b><p>个性化样片</p></div>
-              <div class="gate-card-v2" data-editable><span>G2</span><b>上线评审</b><p>产品、发行与支持</p></div>
-              <div class="gate-card-v2" data-editable><span>G3</span><b>项目复盘</b><p>成本、数据与复用</p></div>
-            </div>
-
-            <div class="reporting-bottom-v2">
-              <article class="trace-box-v2 reveal" style="--delay:330ms">
-                <div class="panel-title"><span>全过程留痕</span><strong>TRACEABLE</strong></div>
-                <div class="trace-tags-v2">
-                  <span data-editable>商务沟通</span><span data-editable>会议纪要</span><span data-editable>决策记录</span><span data-editable>范围变更</span><span data-editable>任务与风险</span><span data-editable>预算消耗</span><span data-editable>产品版本</span><span data-editable>客户确认</span><span data-editable>发行与复盘</span>
-                </div>
-                <p class="trace-rule-v2" data-editable>商务沟通 24 小时内归档；代码、配置、Prompt、资产与成片按统一版本号保存；影响范围、费用或排期的变更必须先评估再执行。</p>
-              </article>
-
-              <aside class="approval-box-v2 reveal" style="--delay:370ms">
-                <div class="panel-title"><span>请领导确认</span><strong>DECISION</strong></div>
-                <div class="approval-list-v2">
-                  <div class="approval-item-v2" data-editable><span>01</span><b>确定 1 个真实 B/G 端项目</b></div>
-                  <div class="approval-item-v2" data-editable><span>02</span><b>确认 6 个核心岗位稳定投入</b></div>
-                  <div class="approval-item-v2" data-editable><span>03</span><b>批准 13,500 元 Demo 直接费用</b></div>
-                  <div class="approval-item-v2" data-editable><span>04</span><b>协调媒资、研发、数据与发行资源</b></div>
-                  <div class="approval-item-v2" data-editable><span>05</span><b>T0 条件到位后按 2 周目标启动</b></div>
-                </div>
-              </aside>
-            </div>
+            <div class="reporting-principle reveal" style="--delay:300ms" data-editable>统一口径：由项目负责人汇总，各岗位提供事实与数据；结论只回答“完成了什么、效果如何、有什么风险、需要什么决策”。</div>
           </div>
-          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>08 / APPROVE TO START</span></div>
+          <div class="slide-foot"><span>AI IMAGE HALL · INTERNAL</span><span>08 / REPORTING METHOD</span></div>
         </div>
       </section>
     </main>
@@ -3869,7 +4359,7 @@
         const blob = new Blob([html], { type: "text/html;charset=utf-8" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "AI影像馆_集团AIGC项目汇报_B版_9页精简版_已编辑.html";
+        link.download = "AI影像馆_集团AIGC项目汇报_8页清晰版_已编辑.html";
         link.click();
         URL.revokeObjectURL(link.href);
         this.showToast("已下载编辑版 HTML");
